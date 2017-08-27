@@ -1,5 +1,7 @@
 @echo off
-setlocal EnableDelayedExpansion 
+setlocal EnableDelayedExpansion
+mode con: cols=120 lines=35
+Title BBT Multi-Miner
 rem **********************************************************************
 rem *         BBT Multi-Miner Easy Batch File  v4 by BBT & alon7         *
 rem *     Featuring Claymore, SGMiner, CCMiner, EBWF's Miner and more    *
@@ -10,6 +12,7 @@ rem * BEST VIEWED IN FULL SCREEN 1920x1080
 rem **********************************************************************
 rem * Environment Setup                                         
 rem echo on
+
 
 ::
 :: Wallets
@@ -22,15 +25,23 @@ SET ZCASH_WALLET_ADDRESS=t1dBorBoRyznDaRyQzEEB4SkvmCFhmF2ZYk
 SET PASCAL_WALLET_ADDRESS=86646-64.59e76e7d7a498fbc
 SET HUSH_WALLET_ADDRESS=t1MmWWevkAxB282JqtpY4bK7njF7XPfcH2n
 SET LBRY_WALLET_ADDRESS=bitsbetrippin
+SET EXP_WALLET_ADDRESS=0x00d27FC9623282422A836590CdD75e5A109850ff
 SET DECRED_WALLET_ADDRESS=bitsbetrippin
 SET DBIX_WALLET_ADDRESS=0x4c04f53f3bf154aa68f78f45b75f0c9dec120796
 SET UBIQ_WALLET_ADDRESS=0xb85150eb365e7df0941f0cf08235f987ba91506a
-SET MUSICCOIN_WALLET_ADDRESS=0xf09522eba78fcd890e2de503b38cadd436df3845
+SET MUSIC_WALLET_ADDRESS=0xf09522eba78fcd890e2de503b38cadd436df3845
+SET NXS_WALLET_ADDRESS=2RGMypvsvDxbYUXUDKJ9zc4Cd6ZuE6SVq6ggmLupLgoNU9xmCEn
+SET UIS_WALLET_ADDRESS=UkujvUHDLTWqRwLZvBw2vzgEYbLXHqpsw4
 
+::
+:: Names
+::
 SET MINER_NAME=bbtworker01
-
 SET EMAIL_ADDRESS=bitsbetrippin1@gmail.com
 
+::
+:: Miners
+::
 SET ETHMINER_NVIDIA_OPTIMIZED="%~dp0\Miners\ethminer\v0.11.0_Nvidia_Optimized\Windows\ethminer.exe"
 SET CLAYMORE_DUAL_ETHEREUM="%~dp0\Miners\Claymore\Dual_Ethereum\v9.7\Windows\EthDcrMiner64.exe"
 SET CLAYMORE_CRYPTONOTE="%~dp0\Miners\Claymore\CryptoNote_GPU\v9.7\Windows\NsGpuCNMiner.exe"
@@ -42,7 +53,9 @@ SET EXCAVATOR_NVIDIA="%~dp0\Miners\excavator\v1.1.0a\Windows\excavator.exe"
 SET GOMINER="%~dp0\Miners\gominer\v1.0.0\Windows\gominer.exe"
 SET SGMINER_AMD="%~dp0\Miners\sgminer\v5.5.0\Windows\sgminer.exe"
 SET SGMINER_CHAINCOIN="%~dp0\Miners\sgminer\v4.1.0-chaincoin\Windows\sgminer.exe"
-SET SGMINER_NICEHASH="%~dp0\Miners\sgminer\v5.6.1-nicehash\Windows\sgminer.exe
+SET SGMINER_NICEHASH="%~dp0\Miners\sgminer\v5.6.1-nicehash\Windows\sgminer.exe"
+SET NEXUSCPUMINER="%~dp0\Miners\NexusMiner\Windows\nexus_cpuminer.exe"
+SET CPUMINER="%~dp0\Miners\CPUMiner\Windows\unitus_cpuminer-x64-generic.exe"
 
 setx GPU_FORCE_64BIT_PTR 0 >nul 2>&1
 setx GPU_MAX_HEAP_SIZE 100 >nul 2>&1
@@ -151,6 +164,20 @@ rem ******* http://hodlpool.com/:
 rem ** http://ubiq.hodlpool.com/
 rem ************ ubiq.hodlpool.com:8009
 
+rem ** Nexus  ***************************************************************
+rem ******* nexusearth.com:
+rem ** https://nxsforum.com/topic/49/new-cpu-miner-guide
+rem ** nxscpupool.com  
+rem ** nxsminingpool.com
+rem ** nxspool.com
+rem ** nexusminingpool.com
+
+rem ** Unitus  ***************************************************************
+rem ******* unitus.online:
+rem ** http://unitus.online/home
+rem ************ stratum+tcp://argon.mine.unitus.online:3003
+
+
 SET miner=%1
 
 IF NOT "%miner%"=="" (
@@ -158,6 +185,1024 @@ IF NOT "%miner%"=="" (
     goto MinerSwitch
 )
 
+REM --------------------------------------------------------------------------------------------------------------------------
+REM Disclosure Agreement
+REM --------------------------------------------------------------------------------------------------------------------------
+
+ECHO **********************************************************************
+ECHO *                            BBT Multi-Miner                         *
+ECHO **********************************************************************
+ECHO *         BBT Multi-Miner Easy Batch File v4 by BBT and alon7        *
+ECHO *     Featuring Claymore, SGMiner, CCMiner, EBWF's Miner and more    *
+ECHO *   Pre-Configured syntax, just update address/worker                *
+ECHO *    Eth, Etc, Xmr, Lbry, Sia, Zcash, Pasc, Hush, DBIX, ubiq and more*
+ECHO **********************************************************************
+ECHO *                BEST VIEWED IN FULL SCREEN 1920x1080                *
+ECHO **********************************************************************
+ECHO *                                                                    *
+ECHO * This is a tool to  assist in the configuration of mining software  *
+ECHO * The creator and maintainers of this software hold no liability.    *
+ECHO *                                                                    *
+ECHO *                                                                    *
+ECHO *   That being said...                                               *
+ECHO *      Let's continue                                                *
+ECHO *                                                                    *
+ECHO **********************************************************************
+ECHO *                        Press ENTER to start                        *
+ECHO **********************************************************************
+pause
+CLS
+
+:HOME
+ECHO ====================================================
+ECHO *             Welcome to MultiMiner                *
+ECHO *       Brought to you by bitsbetrippin            *
+ECHO ====================================================
+ECHO.
+ECHO How would you like to Setup?
+ECHO 1. Guided
+ECHO 2. Expert
+ECHO.
+ECHO - EXIT
+
+:: Get input from user
+SET /P M=Type 1 or 2 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO GUIDED
+IF %M%==2 GOTO ALL
+IF %M% GTR 3 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+
+:GUIDED
+
+ECHO ====================================================
+ECHO *        What Coin Would you like to mine?         *
+ECHO ====================================================
+ECHO 1.  Ethereum (ETH)
+ECHO 2.  Ethereum Classic (ETC)
+ECHO 3.  Monero (XMR)
+ECHO 4.  ZCash (ZCH)
+ECHO 5.  SiaCoin (SC)
+ECHO 6.  PascalCoin (PASC)
+ECHO 7.  Hush (HUSH)
+ECHO 8.  LBRY (LBC)
+ECHO 9.  DubaiCoin (DBIX)
+ECHO 10. UBIQ (UBQ)
+ECHO 11. Expanse (EXP)
+ECHO 12. Chaincoin (CHC)
+ECHO 13. Digibyte (DGB)
+ECHO 14. Feathercoin (FTC)
+ECHO 15. Musiccoin (MUSIC)
+ECHO 16. Nexus (NXS)
+ECHO 17. Unitus (UIS)
+ECHO.
+ECHO 18 - Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO ETH_Menu
+IF %M%==2 GOTO ETC_Menu
+IF %M%==3 GOTO XMR_Menu
+IF %M%==4 GOTO ZCH_Menu
+IF %M%==5 GOTO SC_Menu
+IF %M%==6 GOTO PASC_Menu
+IF %M%==7 GOTO HUSH_Menu
+IF %M%==8 GOTO LBRY_Menu
+IF %M%==9 GOTO DBIX_Menu
+IF %M%==10 GOTO UBIQ_Menu
+IF %M%==11 GOTO EXP_Menu
+IF %M%==12 GOTO CHC_Menu
+IF %M%==13 GOTO DGB_Menu
+IF %M%==14 GOTO FTC_Menu
+IF %M%==15 GOTO MUSIC_Menu
+IF %M%==16 GOTO NXS_Menu
+IF %M%==17 GOTO UIS_Menu
+IF %M%==18 GOTO HOME
+IF %M% GTR 19 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+
+:ETH_Menu
+CLS
+SET POOL1=Ethermine.org  
+SET POOL2=nanopool.org
+SET POOL3=Suprnova.cc
+SET POOL4=coinmine.pl
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+ping -n 1 %POOL2% | find "TTL="
+if errorlevel 1 (
+set error2=Failed
+) else (
+set error2=Good
+)
+
+ping -n 1 %POOL3% | find "TTL="
+if errorlevel 1 (
+ set error3=Failed
+ ) else (
+ set error3=Good
+ )
+ 
+ping -n 1 %POOL4% | find "TTL="
+if errorlevel 1 (
+set error4=Failed
+) else (
+set error4=Good
+)
+CLS
+ECHO ====================================================
+ECHO *                     ETHEREUM                     *
+ECHO ====================================================
+ECHO  please verify YOUR info below
+ECHO  %ETH_WALLET_ADDRESS%
+ECHO  %MINER_NAME%
+ECHO  %EMAIL_ADDRESS%
+ECHO  If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  NVIDIA ONLY - Optimized Ethminer - Eth Ethermine.org Only (%error1%)
+ECHO 2.  NVIDIA ONLY - Optimized Ethminer - Eth Nanopool Only (%error2%)
+ECHO 3.  AMD and NVIDIA Claymore - Eth Only Ethermine.org (%error1%)
+ECHO 4.  AMD and NVIDIA Claymore - Eth Ethermine.org (%error1%) and Siacoin to Nanopool (%error2%)
+ECHO 5.  AMD and NVIDIA Claymore - Eth Ethermine.org (%error1%) and Decred to Suprnova.cc Pool (%error3%)
+ECHO 6.  AMD and NVIDIA Claymore - Eth Ethermine.org (%error1%) and Lbry Credits to Coinmine.pl (%error4%)
+ECHO 7.  AMD and NVIDIA Claymore - Eth Ethermine.org (%error1%) and PascalCoin to Nanopool (%error2%)
+ECHO 8.  AMD and NVIDIA Claymore - Eth Nanopool Only (%error2%)
+ECHO 9.  AMD and NVIDIA Claymore - Eth Nanopool (%error2%) and Siacoin to Nanopool (%error2%)
+ECHO 10. AMD and NVIDIA Claymore - Eth Nanopool (%error2%) and Pascal to Nanopool (%error2%)
+ECHO.
+ECHO 11. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO ethereum1
+IF %M%==2 GOTO ethereum2
+IF %M%==3 GOTO ethereum3
+IF %M%==4 GOTO ethereum4
+IF %M%==5 GOTO ethereum5
+IF %M%==6 GOTO ethereum6
+IF %M%==7 GOTO ethereum7
+IF %M%==8 GOTO ethereum8
+IF %M%==9 GOTO ethereum9
+IF %M%==10 GOTO ethereum10
+IF %M%==11 GOTO HOME
+IF %M% GTR 12 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:ETC_Menu
+CLS
+SET POOL1=nanopool.org 
+SET POOL2=Suprnova.cc
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+ping -n 1 %POOL2% | find "TTL="
+if errorlevel 1 (
+set error2=Failed
+) else (
+set error2=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                  ETHEREUM Classic                *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %ETC_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1. NVIDIA ONLY - Optimized Ethminer - Etc nanopool
+ECHO 2. AMD and NVIDIA Claymore - Etc (ethereum classic) to Nanopool (%error1%)
+ECHO 3. AMD and NVIDIA Claymore - Etc (ethereum classic) and Siacoin both to Nanopool (%error1%)
+ECHO 4. AMD and NVIDIA Claymore - Etc (ethereum classic) Nanopool and Decred to Suprnova.cc Pool (%error2%)
+ECHO 5. AMD and NVIDIA Claymore - Etc (ethereum classic) and Pascal both to Nanopool (%error1%)
+ECHO.
+ECHO 6. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO ethereumc1
+IF %M%==2 GOTO ethereumc2
+IF %M%==3 GOTO ethereumc3
+IF %M%==4 GOTO ethereumc4
+IF %M%==5 GOTO ethereumc5
+IF %M%==6 GOTO HOME
+IF %M% GTR 7 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:XMR_Menu
+CLS
+SET POOL1=nanopool.org  
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                    Monero (XMR)                  *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %XMR_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  AMD ONLY - Claymore - XMR to Nanopool (%error1%)
+ECHO 2.  NVIDIA ONLY - TSIV CCMiner XMR to Nanopool (%error1%)
+ECHO.
+ECHO 3.  Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO monero1
+IF %M%==2 GOTO monero2
+IF %M%==3 GOTO HOME
+IF %M% GTR 4 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:ZCH_Menu
+CLS
+SET POOL1=nanopool.org  
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                       ZCASH                      *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %ZCASH_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  AMD ZCash Claymore - Zcash to Nanopool (%error1%) AMD Only
+ECHO 2.  NVIDIA Excavator - Zcash to Nanopool (%error1%) NVIDIA Only
+ECHO 3.  NVIDIA EWBF's CUDA Zcash Miner - Zcash to Nanopool (%error1%) NVIDIA Only
+ECHO.
+ECHO 4.  Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO zcash1
+IF %M%==2 GOTO zcash2
+IF %M%==3 GOTO zcash3
+IF %M%==4 GOTO HOME
+IF %M% GTR 5 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:SC_Menu
+CLS
+SET POOL1=nanopool.org  
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                      SIACOIN                     *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %SIA_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.   AMD and NVIDIA Gominer - Siacoin to Nanopool Only (%error1%)
+ECHO.
+ECHO 2.   Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO siacoin1
+IF %M%==2 GOTO HOME
+IF %M% GTR 3 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:PASC_Menu
+CLS
+SET POOL1=nanopool.org  
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                    PASCALCOIN                    *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %PASCAL_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  AMD SGMiner PascalCoin (exchange address) - PascalCoin to Nanopool (%error1%)
+ECHO 2.  NVIDIA Excavator - PascalCoin to Nanopool (%error1%)
+ECHO.
+ECHO 3. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO pascal1
+IF %M%==2 GOTO pascal2
+IF %M% GTR 4 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:HUSH_Menu
+CLS
+SET POOL1=zdash.miningpseed.com  
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                       HUSH                       *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %HUSH_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  AMD HUSH Claymore - Hush to zdash.miningpseed.com (%error1%) AMD Only
+ECHO 2.  NVIDIA EWBF's CUDA HUSH Miner - HUSH to zdash.miningspeed.com (%error1%) NVIDIA Only
+ECHO.
+ECHO 3. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO hush1
+IF %M%==2 GOTO hush2
+IF %M%==3 GOTO HOME
+IF %M% GTR 4 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:LBRY_Menu
+CLS
+SET POOL1=coinmine.pl  
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                       LBRY                       *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %LBRY_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  NVIDIA CCMiner Lbry Credits Miner - Lbry to coinmine.pl (%error1%) NVIDIA ONLY
+ECHO 2.  AMD SGMiner Lbry Credits Miner - Lbry to coinmine.pl (%error1%) AMD ONLY
+ECHO.
+ECHO 3. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO lbry1
+IF %M%==2 GOTO lbry2
+IF %M%==3 GOTO HOME
+IF %M% GTR 4 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:DBIX_Menu
+CLS
+SET POOL1=hodlpool.com  
+SET POOL2=sexy.pool
+SET POOL3=nanopool.org
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+ping -n 1 %POOL2% | find "TTL="
+if errorlevel 1 (
+set error2=Failed
+) else (
+set error2=Good
+)
+
+ping -n 1 %POOL3% | find "TTL="
+if errorlevel 1 (
+ set error3=Failed
+ ) else (
+ set error3=Good
+ )
+ 
+CLS
+ECHO ====================================================
+ECHO *                       DBIX                       *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %DBIX_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  AMD and NVIDIA Claymore - DBIX to Sexy.Pool (%error2%) and Siacoin to Nanopool (%error3%)
+ECHO 2.  AMD and NVIDIA Claymore - DBIX to Hodl Pool (%error1%) Only
+ECHO 3.  AMD and NVIDIA Claymore - DBIX to Hodl Pool (%error1%) and Siacoin to Nanopool (%error3%)
+ECHO 4.  
+ECHO.
+ECHO 5. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO dbix1
+IF %M%==2 GOTO dbix2
+IF %M%==3 GOTO dbix3
+IF %M%==4 GOTO dbix4
+IF %M%==5 GOTO HOME
+IF %M% GTR 6 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:UBQ_Menu
+CLS
+SET POOL1=ubiqpool.io 
+SET POOL2=sexy.pool
+SET POOL3=nanopool.org
+SET POOL4=ubiq.hodlpool.com
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+ping -n 1 %POOL2% | find "TTL="
+if errorlevel 1 (
+set error2=Failed
+) else (
+set error2=Good
+)
+
+ping -n 1 %POOL3% | find "TTL="
+if errorlevel 1 (
+ set error3=Failed
+ ) else (
+ set error3=Good
+ )
+ 
+ping -n 1 %POOL4% | find "TTL="
+if errorlevel 1 (
+set error4=Failed
+) else (
+set error4=Good
+)
+CLS
+ECHO ====================================================
+ECHO *                       UBIQ                       *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %UBIQ_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  AMD and NVIDIA Claymore - Ubiq to UbiqPool Only (%error1%)
+ECHO 2.  AMD and NVIDIA Claymore - Ubiq to Sexy.Pool Only (%error2%)
+ECHO 3.  AMD and NVIDIA Claymore - Ubiq to Hodl Pool (%error4%)
+ECHO 4.  AMD and NVIDIA Claymore - Ubiq to UbiqPool (%error1%) and Siacoin to Nanopool (%error3%)
+ECHO 5.  AMD and NVIDIA Claymore - Ubiq to Hodl Pool (%error4%) and Siacoin to Nanopool (%error3%)
+ECHO 6.  AMD and NVIDIA Claymore - Ubiq to Sexy.Pool (%error2%) and Siacoin to Nanopool (%error3%)
+ECHO.
+ECHO 7. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO ubiq1
+IF %M%==2 GOTO ubiq2
+IF %M%==3 GOTO ubiq3
+IF %M%==4 GOTO ubiq4
+IF %M%==5 GOTO ubiq5
+IF %M%==6 GOTO ubiq6
+IF %M%==7 GOTO HOME
+IF %M% GTR 8 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:EXP_Menu
+CLS
+SET POOL1=exp.hodlpool.com 
+SET POOL2=exp.digger.ws
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+ping -n 1 %POOL2% | find "TTL="
+if errorlevel 1 (
+set error2=Failed
+) else (
+set error2=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                      Expanse                     *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %EXP_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  AMD and NVIDIA Claymore - Expanse to Hodl Pool (%error1%)
+ECHO 2.  AMD and NVIDIA Claymore - Expanse to ExpansePool (%error2%)
+ECHO.
+ECHO 3. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO exp1
+IF %M%==2 GOTO exp1
+IF %M%==3 GOTO HOME
+IF %M% GTR 4 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:CHC_Menu
+CLS
+SET POOL1=supernova.cc  
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                     Chaincoin                    *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %CHC_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  AMD - Chaincoin to Suprnova.cc (%error1%)
+ECHO 2.  Nvidia - Chaincoin to Suprnova.cc (%error1%)
+ECHO.
+ECHO 3. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO chc1
+IF %M%==2 GOTO chc2
+IF %M%==3 GOTO HOME
+IF %M% GTR 4 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:DGB_Menu
+CLS
+SET POOL1=supernova.cc  
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                     Digibyte                     *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %DGB_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  AMD - Digibyte to Suprnova.cc (%error1%)
+ECHO 2.  NVIDIA - Digibyte to Suprnova.cc (%error1%)
+ECHO.
+ECHO 3. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO dgb1
+IF %M%==2 GOTO dgb2
+IF %M%==3 GOTO HOME
+IF %M% GTR 4 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:FTC_Menu
+CLS
+SET POOL1=f2pool.com  
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                    Feathercoin                   *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %FTC_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  NVIDIA - FTC to F2Pool (%error1%) FTC **AMD Version soon!
+ECHO.
+ECHO 2. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO ftc1
+IF %M%==2 GOTO HOME
+IF %M% GTR 3 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:MUSIC_Menu
+CLS
+SET POOL1=gmc.epool.io  
+SET POOL2=nanopool.org
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+ping -n 1 %POOL2% | find "TTL="
+if errorlevel 1 (
+set error2=Failed
+) else (
+set error2=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                     MusicCoin                    *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %MUSIC_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io) (%error1%)
+ECHO 2.  AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io) (%error1%) and Siacoin to Nanopool (%error2%)
+ECHO 3. 
+ECHO.
+ECHO 4. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO musiccoin1
+IF %M%==2 GOTO musiccoin2
+IF %M%==3 GOTO musiccoin3
+IF %M%==4 GOTO HOME
+IF %M% GTR 5 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:NXS_Menu
+CLS
+SET POOL1=nexusminingpool.com 
+SET POOL2=nxscpupool.com
+SET POOL3=nxsminingpool.com
+SET POOL4=nxspool.com
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+ping -n 1 %POOL2% | find "TTL="
+if errorlevel 1 (
+set error2=Failed
+) else (
+set error2=Good
+)
+
+ping -n 1 %POOL3% | find "TTL="
+if errorlevel 1 (
+ set error3=Failed
+ ) else (
+ set error3=Good
+ )
+ 
+ping -n 1 %POOL4% | find "TTL="
+if errorlevel 1 (
+set error4=Failed
+) else (
+set error4=Good
+)
+CLS
+ECHO ====================================================
+ECHO *                     Nexus                        *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %NXS_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  CPUMINER - Nexus to epool Pool (https://nexusminingpool.com) (%error1%)
+ECHO 2.  CPUMINER - Nexus to epool Pool (https://nxscpupool.com) (%error2%)
+ECHO 3.  CPUMINER - Nexus to epool Pool (https://nxsminingpool.com) (%error3%)
+ECHO 4.  CPUMINER - Nexus to epool Pool (https://nxspool.com) (%error4%)
+ECHO.
+ECHO 5. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO nexus1
+IF %M%==2 GOTO nexus2
+IF %M%==3 GOTO nexus3
+IF %M%==4 GOTO nexus4
+IF %M%==5 GOTO HOME
+IF %M% GTR 6 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:UIS_Menu
+CLS
+SET POOL1=mine.unitus.online  
+
+ECHO Please wait
+ECHO We will now verify the pools status
+
+ping -n 1 %POOL1% | find "TTL="
+if errorlevel 1 (
+set error1=Failed
+) else (
+set error1=Good
+)
+
+CLS
+ECHO ====================================================
+ECHO *                     Unitus                       *
+ECHO ====================================================
+ECHO please verify YOUR info below
+ECHO %UIS_WALLET_ADDRESS%
+ECHO %MINER_NAME%
+ECHO %EMAIL_ADDRESS%
+ECHO If any of this is incorrect exit and edit this .bat file
+ECHO.
+ECHO 1.  CPUMINER - Unitus to epool Pool (https://mine.unitus.online) (%error1%)
+ECHO.
+ECHO 2. Home
+ECHO 99 - EXIT
+ECHO.
+
+:: Get input from user
+SET /P M=Type 1, 2, 3, or 4 then press ENTER:
+if %ERRORLEVEL% NEQ 0 goto EOF
+
+:: Is choice a number?
+SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
+if defined var goto EOF
+
+IF %M%==1 GOTO unitus1
+IF %M%==2 GOTO HOME
+IF %M% GTR 3 GOTO EOF
+IF %M% LSS 0 GOTO EOF
+
+:ALL
 ECHO ====================================================
 ECHO *                     ETHEREUM                     *
 ECHO ====================================================
@@ -229,26 +1274,40 @@ ECHO ====================================================
 ECHO *                      Expanse                     *
 ECHO ====================================================
 ECHO 38.  AMD and NVIDIA Claymore - Expanse to Hodl Pool
+ECHO 39.  AMD and NVIDIA Claymore - Expanse to ExpansePool
 ECHO ====================================================
 ECHO *                     Chaincoin                    *
 ECHO ====================================================
-ECHO 39.  AMD - Chaincoin to Suprnova.cc
-ECHO 40.  Nvidia - Chaincoin to Suprnova.cc
+ECHO 40.  AMD - Chaincoin to Suprnova.cc
+ECHO 41.  Nvidia - Chaincoin to Suprnova.cc
 ECHO ====================================================
 ECHO *                     Digibyte                     *
 ECHO ====================================================
-ECHO 41.  AMD - Digibyte to Suprnova.cc
-ECHO 42.  NVIDIA - Digibyte to Suprnova.cc
+ECHO 42.  AMD - Digibyte to Suprnova.cc
+ECHO 43.  NVIDIA - Digibyte to Suprnova.cc
 ECHO ====================================================
 ECHO *                    Feathercoin                   *
 ECHO ====================================================
-ECHO 43.  NVIDIA - FTC to F2Pool FTC **AMD Version soon!
+ECHO 44.  NVIDIA - FTC to F2Pool FTC **AMD Version soon!
 ECHO ====================================================
 ECHO *                     MusicCoin                    *
 ECHO ====================================================
-ECHO 44.  AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io)
-ECHO 45.  AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io) and Siacoin to Nanopool
-ECHO 46.  AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io) and LBRY to Coinmine.pl
+ECHO 45.  AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io)
+ECHO 46.  AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io) and Siacoin to Nanopool
+ECHO 47.
+ECHO ====================================================
+ECHO *                     Nexus                        *
+ECHO ====================================================
+ECHO 48.  CPUMINER - Nexus to epool Pool (https://nexusminingpool.com)
+ECHO 49.  CPUMINER - Nexus to epool Pool (https://nxscpupool.com)
+ECHO 50.  CPUMINER - Nexus to epool Pool (https://nxsminingpool.com)
+ECHO 51.  CPUMINER - Nexus to epool Pool (https://nxspool.com)
+ECHO ====================================================
+ECHO *                     Unitus                       *
+ECHO ====================================================
+ECHO 52.  CPUMINER - Unitus to epool Pool (https://mine.unitus.online)
+ECHO.
+ECHO 53. Home
 ECHO 99 - EXIT
 ECHO.
 
@@ -299,15 +1358,22 @@ IF %M%==35 GOTO ubiq4
 IF %M%==36 GOTO ubiq5
 IF %M%==37 GOTO ubiq6
 IF %M%==38 GOTO exp1
-IF %M%==39 GOTO chc1
-IF %M%==40 GOTO chc2
-IF %M%==41 GOTO dgb1
-IF %M%==42 GOTO dgb2
-IF %M%==43 GOTO ftc1
-IF %M%==44 GOTO musiccoin1
-IF %M%==45 GOTO musiccoin2
-IF %M%==46 GOTO musiccoin3
-IF %M% GTR 46 GOTO EOF
+IF %M%==39 GOTO exp2
+IF %M%==40 GOTO chc1
+IF %M%==41 GOTO chc2
+IF %M%==42 GOTO dgb1
+IF %M%==43 GOTO dgb2
+IF %M%==44 GOTO ftc1
+IF %M%==45 GOTO musiccoin1
+IF %M%==46 GOTO musiccoin2
+IF %M%==47 GOTO musiccoin3
+IF %M%==48 GOTO nexus1
+IF %M%==49 GOTO nexus2
+IF %M%==50 GOTO nexus3
+IF %M%==51 GOTO nexus4
+IF %M%==52 GOTO unitus1
+IF %M%==53 GOTO HOME
+IF %M% GTR 54 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 
@@ -578,6 +1644,12 @@ ECHO AMD and NVIDIA Claymore - Expanse to Hodl Pool
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
+:exp2
+ECHO AMD and NVIDIA Claymore - Expanse to Hodl Pool
+%CLAYMORE_DUAL_ETHEREUM% -epool exp.digger.ws:7008 -ewal %EXP_WALLET_ADDRESS% -epsw x -esm 0 -allcoins exp -allpools 1 
+if %ERRORLEVEL% NEQ 0 goto exit
+pause
+
 ::
 :: Chaincoin Miners
 ::
@@ -634,6 +1706,51 @@ pause
 :musiccoin3
 ECHO AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io) and LBRY to Coinmine.pl
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://uk.gmc.epool.io:8008 -ewal %MUSICCOIN_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -dpool stratum+tcp://lbc-us.coinmine.pl:6256 -dwal %LBRY_WALLET_ADDRESS%.%MINER_NAME% -dpsw x -dcoin lbc
+if %ERRORLEVEL% NEQ 0 goto exit
+pause
+
+::
+:: Nexus Miners
+::
+:nexus1
+SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
+SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
+ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nexusminingpool.com)
+%NexusCPUMiner% nexusminingpool.com 9549 %NXS_WALLET_ADDRESS% %sthreads% %pthreads% 10 
+if %ERRORLEVEL% NEQ 0 goto exit
+pause
+
+:nexus2
+SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
+SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
+ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nxscpupool.com)
+%NexusCPUMiner% nxscpupool.com 9549 %NXS_WALLET_ADDRESS% %sthreads% %pthreads% 10 
+if %ERRORLEVEL% NEQ 0 goto exit
+pause
+
+:nexus3
+SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
+SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
+ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nxsminingpool.com)
+%NexusCPUMiner% nxsminingpool.com 9549 %NXS_WALLET_ADDRESS% %sthreads% %pthreads% 10 
+if %ERRORLEVEL% NEQ 0 goto exit
+pause
+
+:nexus4
+SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
+SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
+ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nxspool.com)
+%NexusCPUMiner% nxspool.com 9549 %NXS_WALLET_ADDRESS% %sthreads% %pthreads% 10 
+if %ERRORLEVEL% NEQ 0 goto exit
+pause
+
+::
+:: Unitus Miners
+::
+:unitus1
+ECHO CPUMiner - Unitus Merge Mine to epool Pool (https://mine.unitus.online)
+SET /a uthreads=%NUMBER_OF_PROCESSORS% -1
+%CPUMINER% -a argon2d -o stratum+tcp://argon.mine.unitus.online:3003 -O %UIS_WALLET_ADDRESS%:x -t %uthreads%
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 

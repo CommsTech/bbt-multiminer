@@ -5,20 +5,23 @@ They created the initial multiminer to enable easy switch between miners.
 I took the script a step further and added more pools, coins and made it more configurable.  
 
 ### Available Coins
-1. Ethereum
-2. Ethereum Classic
-3. Monero
-4. Zcash
-5. Siacoin
-6. Pascalcoin
-7. Hush
-8. Lbry
-9. Dubaicoin (Dbix)
-10. Ubiq
-11. Expanse
-12. Chaincoin
-13. Digibyte
-14. Feathercoin
+1.  Ethereum (ETH)
+2.  Ethereum Classic (ETC)
+3.  Monero (XMR)
+4.  ZCash (ZCH)
+5.  SiaCoin (SC)
+6.  PascalCoin (PASC)
+7.  Hush (HUSH)
+8.  LBRY (LBC)
+9.  DubaiCoin (DBIX)
+10. UBIQ (UBQ)
+11. Expanse (EXP)
+12. Chaincoin (CHC)
+13. Digibyte (DGB)
+14. Feathercoin (FTC)
+15. Musiccoin (MUSIC)
+16. Nexus (NXS)
+17. Unitus (UIS)
 
 ## Setup
 
