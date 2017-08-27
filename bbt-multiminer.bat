@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableDelayedExpansion
-mode con: cols=120 lines=35
+mode con: cols=120 lines=50
 Title BBT Multi-Miner
 rem **********************************************************************
 rem *         BBT Multi-Miner Easy Batch File  v4 by BBT & alon7         *
@@ -188,32 +188,62 @@ IF NOT "%miner%"=="" (
 REM --------------------------------------------------------------------------------------------------------------------------
 REM Disclosure Agreement
 REM --------------------------------------------------------------------------------------------------------------------------
-
-ECHO **********************************************************************
-ECHO *                            BBT Multi-Miner                         *
-ECHO **********************************************************************
-ECHO *         BBT Multi-Miner Easy Batch File v4 by BBT and alon7        *
-ECHO *     Featuring Claymore, SGMiner, CCMiner, EBWF's Miner and more    *
-ECHO *   Pre-Configured syntax, just update address/worker                *
-ECHO *    Eth, Etc, Xmr, Lbry, Sia, Zcash, Pasc, Hush, DBIX, ubiq and more*
-ECHO **********************************************************************
-ECHO *                BEST VIEWED IN FULL SCREEN 1920x1080                *
-ECHO **********************************************************************
-ECHO *                                                                    *
-ECHO * This is a tool to  assist in the configuration of mining software  *
-ECHO * The creator and maintainers of this software hold no liability.    *
-ECHO *                                                                    *
-ECHO *                                                                    *
-ECHO *   That being said...                                               *
-ECHO *      Let's continue                                                *
-ECHO *                                                                    *
-ECHO **********************************************************************
-ECHO *                        Press ENTER to start                        *
-ECHO **********************************************************************
+COLOR 9
+ECHO **********************************************************************************************************************
+ECHO *                                                                                                                    *
+ECHO *                        yhhhho   +hhhhy                                                                             *
+ECHO *                        mMMMMy   yMMMMN                                                                             *
+ECHO *                        NMMMMy   yMMMMN                      ...---....                                             *
+ECHO *                        NMMMMy   yMMMMN                -/+syhhddmmNNNNNNmmmddhyso+/::-.                             *
+ECHO *             :::::::::::NMMMMh:::hMMMMN-:/:/+oooooooooossssoosssssoooo+osyhddmNMMMMMNNNmdhys+/:-.                   *
+ECHO *            .NNNNNNNNNNNMMMMMMNNNMMMMMMNNNmdhys+yoNssdd+sMo+hoyNsdymhmhyo:.    -:/mMMMMMMMMMMMNNmdys+:--            *
+ECHO *             MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNmh//od+-/oM+.-`.mhs:ssh/dohho.     NMMMMMMMm/+oyhdmNMMMNdhs+:--.     *
+ECHO *             hdddddNMMMMMMMMMNmmmmmmNNMMMMMMMMMMMMd/ym:/yMmdsyoo/``-:-+hsy-dN+   /MMMMMMMM/      ..:/oydmmh-..-:+   *
+ECHO *                   :MMMMMMMMMh......--/sdMMMMMMMMMMN-+hN+///++syyy//o:+dom:+MM/  hMMMMMMMh`             .-://::o:   *
+ECHO *                   .MMMMMMMMMy          `sMMMMMMMMMMs+mm        `:ddy::::+/:omd `NMMMMMMM-                   .-.    *
+ECHO *                   .MMMMMMMMMy           .MMMMMMMMMMs.ym          /M//os-syN:hd /MMMMMMMy                           *
+ECHO *                   .MMMMMMMMMy           +MMMMMMMMMN- ym         `yN/hsd:s/yhNo hMMMMMMN-                           *
+ECHO *                   .MMMMMMMMMy        `.+NMMMMMMMMN+.odm       .-ymy:./o/o/+dy .NMMMMMMs                            *
+ECHO *                   .MMMMMMMMMdooooooosymMMMMMMMMmy/s+ysmyyhyyyyhdd+.` +--hmm+  +MMMMMMN.                            *
+ECHO *                   .MMMMMMMMMMMMMMMMMMMMMMMMMMMMdo++.h.:+y//s/os/-/o. o/ohmh+. hMMMMMMo                             *
+ECHO *                   .NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNdo/.+y:-+m/+y+.+y--o/:-.:yNyNMMMMMN.                             *
+ECHO *                   .NNNNNNNNNd++++++++osymNNNNNNNNNNNd:yyyyhdyhdhymo:.y:sy/+shNNNNNNNo                              *
+ECHO *                   .NNNNNNNNNy           `-sNNNNNNNNNNd:         .:odhs+h+h:y.yoNNNNm.                              *
+ECHO *                   .NNNNNNNNNs              oNNNNNNNNNN:             hh`./-./+/.dNNNo                               *
+ECHO *                   `dddddddddo              /dddddddddd:             ss `/.:y/y.hddh`                               *
+ECHO *                   `dddddddddo             .ydddddddddd.            -h+ `o../+o+ddd+                                *
+ECHO *                   .dddddddddo           ./hdddddddddds:         .:ohy-.::-:``-oddh`                                *
+ECHO *             .-----sdddddddddy++++++++osyddddddddddddy:hsssssysssoo+:-o`s-o/y-sddd+                                 *
+ECHO *             +ddddddddddddddddddddddddddddddddddddddo`..` .+-.-:+od: `yso/+oysdddd.                                 *
+ECHO *             odddddddddddddddddddddddddddddddddddy+.s-yos/ooh``-`+d-//:+--/ydddddo          `                       *
+ECHO *             +ssssssssssdddddhssshdddddssssssoooosdyyohshsdodyyyosdsohhss+:sddddd.                                  *
+ECHO *                        hmmmms   ommmmd                                   dmmmms                                    *
+ECHO *                        dmmmms   ommmmd                                                                             *
+ECHO *                        dmmmms   ommmmd                                                                             *
+ECHO *                        dmmmms   ommmmd                                                                             *
+ECHO *                                                                                                                    *
+ECHO **********************************************************************************************************************
+ECHO *         BBT Multi-Miner Easy Batch File v4 by BBT, alon7 and Commstech Featuring Claymore, SGMiner, CCMiner,       *
+ECHO * EBWF's Miner and Pre-Configured syntax, just update address/worker and run this .bat                               *
+ECHO *    Eth, Etc, Xmr, Lbry, Sia, Zcash, Pasc, Hush, DBIX, ubiq and more                                                *
+ECHO **********************************************************************************************************************
+ECHO *                                         BEST VIEWED IN FULL SCREEN 1920x1080                                       *
+ECHO **********************************************************************************************************************
+ECHO *                                                                                                                    *
+ECHO *                          This is a tool to  assist in the configuration of mining software                         *
+ECHO *                          The creator and maintainers of this software hold no liability.                           *
+ECHO *                                                                                                                    *
+ECHO *                               That being said...                                                                   *
+ECHO *                               Let's continue                                                                       *
+ECHO *                                                                                                                    *
+ECHO **********************************************************************************************************************
+ECHO *                                                  Press ENTER to start                                              *
+ECHO **********************************************************************************************************************
 pause
-CLS
 
 :HOME
+COLOR 7
+CLS
 ECHO ====================================================
 ECHO *             Welcome to MultiMiner                *
 ECHO *       Brought to you by bitsbetrippin            *
@@ -240,7 +270,7 @@ IF %M% LSS 0 GOTO EOF
 
 
 :GUIDED
-
+CLS
 ECHO ====================================================
 ECHO *        What Coin Would you like to mine?         *
 ECHO ====================================================
@@ -1161,7 +1191,8 @@ IF %M% LSS 0 GOTO EOF
 
 :UIS_Menu
 CLS
-SET POOL1=mine.unitus.online  
+SET POOL1=mine.unitus.online
+SET POOL2=zpool.ca
 
 ECHO Please wait
 ECHO We will now verify the pools status
@@ -1171,6 +1202,12 @@ if errorlevel 1 (
 set error1=Failed
 ) else (
 set error1=Good
+)
+ping -n 1 %POOL2% | find "TTL="
+if errorlevel 1 (
+set error2=Failed
+) else (
+set error2=Good
 )
 
 CLS
@@ -1183,9 +1220,10 @@ ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
 ECHO If any of this is incorrect exit and edit this .bat file
 ECHO.
-ECHO 1.  CPUMINER - Unitus to epool Pool (https://mine.unitus.online) (%error1%)
+ECHO 1.  CPUMINER - Unitus Argon2d to epool Pool (https://mine.unitus.online) (%error1%)
+ECHO 2.  CPUMINER - Unitus Yescrypt to epool Pool (https://zpool.ca) (%error2%)
 ECHO.
-ECHO 2. Home
+ECHO 3. Home
 ECHO 99 - EXIT
 ECHO.
 
@@ -1198,8 +1236,9 @@ SET "var="&for /f "delims=0123456789" %%i in ("%M%") do set var=%%i
 if defined var goto EOF
 
 IF %M%==1 GOTO unitus1
-IF %M%==2 GOTO HOME
-IF %M% GTR 3 GOTO EOF
+IF %M%==2 GOTO unitus2
+IF %M%==3 GOTO HOME
+IF %M% GTR 4 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :ALL
@@ -1305,9 +1344,10 @@ ECHO 51.  CPUMINER - Nexus to epool Pool (https://nxspool.com)
 ECHO ====================================================
 ECHO *                     Unitus                       *
 ECHO ====================================================
-ECHO 52.  CPUMINER - Unitus to epool Pool (https://mine.unitus.online)
+ECHO 52.  CPUMINER - Unitus Argon2d to epool Pool (https://mine.unitus.online)
+ECHO 53.  CPUMINER - Unitus Yescrypt to epool Pool (https://zpool.ca)
 ECHO.
-ECHO 53. Home
+ECHO 54. Home
 ECHO 99 - EXIT
 ECHO.
 
@@ -1372,8 +1412,9 @@ IF %M%==49 GOTO nexus2
 IF %M%==50 GOTO nexus3
 IF %M%==51 GOTO nexus4
 IF %M%==52 GOTO unitus1
-IF %M%==53 GOTO HOME
-IF %M% GTR 54 GOTO EOF
+IF %M%==53 GOTO unitus2
+IF %M%==54 GOTO HOME
+IF %M% GTR 55 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 
@@ -1807,6 +1848,14 @@ Title BBT Multi-Miner - CPUMiner (Unitus-Argon2d)
 ECHO CPUMiner - Unitus Merge Mine to epool Pool (https://mine.unitus.online)
 SET /a uthreads=%NUMBER_OF_PROCESSORS% -1
 %CPUMINER% -a argon2d -o stratum+tcp://argon.mine.unitus.online:3003 -O %UIS_WALLET_ADDRESS%:x -t %uthreads%
+if %ERRORLEVEL% NEQ 0 goto exit
+pause
+
+:unitus2
+Title BBT Multi-Miner - CPUMiner (Unitus-yescrypt)
+ECHO CPUMiner - Unitus Merge Mine to epool Pool (https://zpool.ca)
+SET /a uthreads=%NUMBER_OF_PROCESSORS% -1
+%CPUMINER% -a yescrypt -o stratum+tcp://yescrypt.mine.zpool.ca:6233 -O %UIS_WALLET_ADDRESS%:c=UIS -t %uthreads%
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
