@@ -411,7 +411,7 @@ ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
 ECHO If any of this is incorrect exit and edit this .bat file
 ECHO.
-ECHO 1. NVIDIA ONLY - Optimized Ethminer - Etc nanopool
+ECHO 1. NVIDIA ONLY - Optimized Ethminer - Etc nanopool (%error1%)
 ECHO 2. AMD and NVIDIA Claymore - Etc (ethereum classic) to Nanopool (%error1%)
 ECHO 3. AMD and NVIDIA Claymore - Etc (ethereum classic) and Siacoin both to Nanopool (%error1%)
 ECHO 4. AMD and NVIDIA Claymore - Etc (ethereum classic) Nanopool and Decred to Suprnova.cc Pool (%error2%)
@@ -1381,60 +1381,70 @@ IF %M% LSS 0 GOTO EOF
 :: Ethereum miners
 ::
 :ethereum1
+Title BBT Multi-Miner - ETHMiner (ETH)
 ECHO NVIDIA ONLY - Optimized Ethminer - Eth Ethermine.org Only
 %ETHMINER_NVIDIA_OPTIMIZED% --farm-recheck 200 -G -S eu1.ethermine.org:4444 -FS us1.ethermine.org:4444 -O %ETH_WALLET_ADDRESS%.%MINER_NAME%
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereum2
+Title BBT Multi-Miner - ETHMiner (ETH)
 ECHO NVIDIA ONLY - Optimized Ethminer - Eth Nanopool Only
 %ETHMINER_NVIDIA_OPTIMIZED% --farm-recheck 200 -G -S eth-us-east1.nanopool.org:9999 -FS eth-eu1.nanopool.org:9999 -O %ETH_WALLET_ADDRESS%.%MINER_NAME%/%EMAIL_ADDRESS%
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereum3
+Title BBT Multi-Miner - Claymore (ETH)
 ECHO AMD and NVIDIA Claymore - Eth Only Ethermine.org
 %CLAYMORE_DUAL_ETHEREUM% -epool us1.ethermine.org:4444 -ewal %ETH_WALLET_ADDRESS%.%MINER_NAME% -epsw x
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereum4
+Title BBT Multi-Miner - Claymore (ETH) and (SC)
 ECHO AMD and NVIDIA Claymore - Eth Ethermine.org and Siacoin to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool us1.ethermine.org:4444 -ewal %ETH_WALLET_ADDRESS%.%MINER_NAME% -epsw x -dpool stratum+tcp://sia-us-east1.nanopool.org:7777 -dwal %SIA_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -dcoin sia
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereum5
+Title BBT Multi-Miner - Claymore (ETH) and (DECRED)
 ECHO AMD and NVIDIA Claymore - Eth Ethermine.org and Decred to Suprnova.cc Pool
 %CLAYMORE_DUAL_ETHEREUM% -epool us1.ethermine.org:4444 -ewal %ETH_WALLET_ADDRESS%.%MINER_NAME% -epsw x -dpool stratum+tcp://dcr.suprnova.cc:3252 -dwal %DECRED_WALLET_ADDRESS%.%MINER_NAME% -dpsw x -allpools 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereum6
+Title BBT Multi-Miner - Claymore (ETH) and (LBRY)
 ECHO AMD and NVIDIA Claymore - Eth Ethermine.org and Lbry Credits to Coinmine.pl
 %CLAYMORE_DUAL_ETHEREUM% -epool us1.ethermine.org:4444 -ewal %ETH_WALLET_ADDRESS%.%MINER_NAME% -epsw x -dpool stratum+tcp://lbc-us.coinmine.pl:8787 -dwal %LBRY_WALLET_ADDRESS%.%MINER_NAME% -dpsw x -dcoin lbc
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereum7
+Title BBT Multi-Miner - Claymore (ETH) and (PASC)
 ECHO AMD and NVIDIA Claymore - Eth Ethermine.org and PascalCoin to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool us1.ethermine.org:4444 -ewal %ETH_WALLET_ADDRESS%.%MINER_NAME% -epsw x -dpool stratum+tcp://pasc-us-east1.nanopool.org:15555 -dwal %PASCAL_WALLET_ADDRESS%.%MINER_NAME%/%EMAIL_ADDRESS% -dpsw x -dcoin pasc -ftime 10 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereum8
+Title BBT Multi-Miner - Claymore (ETH)
 ECHO AMD and NVIDIA Claymore - Eth Nanopool Only
 %CLAYMORE_DUAL_ETHEREUM% -epool eth-us-east1.nanopool.org:9999 -ewal %ETH_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -mode 1
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereum9
+Title BBT Multi-Miner - Claymore (ETH) and (SC)
 ECHO AMD and NVIDIA Claymore - Eth Nanopool and Siacoin to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool eth-us-east1.nanopool.org:9999 -ewal %ETH_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -epsw x -dpool stratum+tcp://sia-us-east1.nanopool.org:7777 -dwal %SIA_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -dcoin sia
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereum10
+Title BBT Multi-Miner - Claymore (ETH) and (PASC)
 ECHO AMD and NVIDIA Claymore - Eth Nanopool and Pascal to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool eth-us-east1.nanopool.org:9999 -ewal %ETH_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -epsw x -dpool stratum+tcp://pasc-us-east1.nanopool.org:15555 -dwal %PASCAL_WALLET_ADDRESS%.%MINER_NAME%/%EMAIL_ADDRESS% -dcoin pasc -ftime 10 
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1444,30 +1454,35 @@ pause
 :: Ethereum Classic miners
 ::
 :ethereumc1
+Title BBT Multi-Miner - ETHMiner (ETC)
 ECHO NVIDIA ONLY - Optimized Ethminer - Etc nanopool Only 
 %ETHMINER_NVIDIA_OPTIMIZED% --farm-recheck 200 -G -S etc-us-east1.nanopool.org:19999 -O %ETC_WALLET_ADDRESS%.%MINER_NAME%/%EMAIL_ADDRESS%
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereumc2
+Title BBT Multi-Miner - Claymore (ETC)
 ECHO AMD and NVIDIA Claymore - Etc (ethereum classic) to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool etc-us-east1.nanopool.org:19999 -ewal %ETC_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -mode 1 -allpools 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereumc3
+Title BBT Multi-Miner - Claymore (ETC) and (SC)
 ECHO AMD and NVIDIA Claymore - Etc (ethereum classic) and Siacoin both to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool etc-us-east1.nanopool.org:19999 -ewal %ETC_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -epsw x -dpool stratum+tcp://sia-us-east1.nanopool.org:7777 -dwal %SIA_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -dcoin sia -allpools 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereumc4
+Title BBT Multi-Miner - Claymore (ETC) and (DECRED)
 ECHO AMD and NVIDIA Claymore - Etc (ethereum classic) Nanopool and Decred to Suprnova.cc Pool
 %CLAYMORE_DUAL_ETHEREUM% -epool etc-us-east1.nanopool.org:19999 -ewal %ETC_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -epsw x -dpool stratum+tcp://dcr.suprnova.cc:3252 -dwal %DECRED_WALLET_ADDRESS%.%MINER_NAME% -dpsw x -allpools 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ethereumc5
+Title BBT Multi-Miner - Claymore (ETC) and (PASC)
 ECHO AMD and NVIDIA Claymore - Etc (ethereum classic) and Pascal both to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool etc-us-east1.nanopool.org:19999 -ewal %ETC_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -epsw x -dpool stratum+tcp://pasc-us-east1.nanopool.org:15555 -dwal %PASCAL_WALLET_ADDRESS%.%MINER_NAME%/%EMAIL_ADDRESS% -dcoin pasc -ftime 10 -allpools 1 
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1477,12 +1492,14 @@ pause
 :: Monero Miners
 ::
 :monero1
+Title BBT Multi-Miner - Claymore (XMR)
 ECHO AMD ONLY - Claymore - XMR to Nanopool
 %CLAYMORE_CRYPTONOTE% -o ssl://xmr-eu1.nanopool.org:14433 -u %XMR_WALLET_ADDRESS%.%MINER_NAME%/%EMAIL_ADDRESS% -p z -ftime 1 -allpools 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :monero2
+Title BBT Multi-Miner - CCMiner (XMR)
 ECHO NVIDIA ONLY - TSIV CCMiner XMR to Nanopool
 %TSIV_XMR_NVIDIA% -q -o stratum+tcp://xmr-us-east1.nanopool.org:14444 -u %XMR_WALLET_ADDRESS%.%MINER_NAME%/%EMAIL_ADDRESS% -p x -l 4x84
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1492,18 +1509,21 @@ pause
 :: ZCash Miners
 ::
 :zcash1
+Title BBT Multi-Miner - Claymore (ZCASH)
 ECHO ZCash Claymore - Zcash to Nanopool AMD Only
 %CLAYMORE_ZCASH_AMD_GPU% -zpool ssl://zec-us-east1.nanopool.org:6633 -zwal %ZCASH_WALLET_ADDRESS%.%MINER_NAME%/%EMAIL_ADDRESS% -zpsw z -ftime 1 -allpools 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :zcash2
+Title BBT Multi-Miner - Excavator (ZCASH)
 ECHO NVIDIA Excavator - Zcash to Nanopool NVIDIA Only
 %EXCAVATOR_NVIDIA% -a equihash -s zec-us-east1.nanopool.org:6666 -u %ZCASH_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -p 0 -d 2 -ca -ca 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :zcash3
+Title BBT Multi-Miner - EWBF (ZCASH)
 ECHO NVIDIA EWBF's CUDA Zcash Miner - Zcash to Nanopool NVIDIA Only
 %ZEC_MINER% --server zec-us-east1.nanopool.org --user %ZCASH_WALLET_ADDRESS%.%MINER_NAME%.%EMAIL_ADDRESS% --pass z --port 6666
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1513,6 +1533,7 @@ pause
 :: SiaCoin Miners
 ::
 :siacoin1
+Title BBT Multi-Miner - Gominer (SC)
 ECHO AMD and NVIDIA Gominer - Siacoin to Nanopool Only
 %GOMINER% -I 28 -H sia-us-east1.nanopool.org:9980 -Q "address=%SIA_WALLET_ADDRESS%&worker=%MINER_NAME%&email=%EMAIL_ADDRESS%"
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1522,12 +1543,14 @@ pause
 :: PascalCoin Miners
 ::
 :pascal1
+Title BBT Multi-Miner - SGMiner (PASC)
 ECHO AMD SGMiner PascalCoin (exchange address) - PascalCoin to Nanopool
 %SGMINER_AMD% -k pascal -o stratum+tcp://pasc-us-east1.nanopool.org:15555 -u %PASCAL_WALLET_ADDRESS%.%MINER_NAME%/%EMAIL_ADDRESS% -p x -I 21 -w 64 -g2 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :pascal2
+Title BBT Multi-Miner - Excavator (PASC)
 ECHO NVIDIA Excavator - PascalCoin to Nanopool
 %EXCAVATOR_NVIDIA% -a pascal -s pasc-us-east1.nanopool.org:15555 -u %PASCAL_WALLET_ADDRESS%.%MINER_NAME%/%EMAIL_ADDRESS% -d 2 -ca 
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1537,6 +1560,7 @@ pause
 :: Hush Miners
 ::
 :hush1
+Title BBT Multi-Miner - Claymore (HUSH)
 ECHO AMD HUSH Claymore - Hush to zdash.miningpseed.com AMD Only
 %CLAYMORE_ZCASH_AMD_GPU%
 -zpool mining.miningspeed.com:3062
@@ -1547,6 +1571,7 @@ if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :hush2
+Title BBT Multi-Miner - EWBF Miner (HUSH)
 ECHO NVIDIA EWBF's CUDA HUSH Miner - HUSH to zdash.miningspeed.com NVIDIA Only
 %ZEC_MINER% --server mining.miningspeed.com --user %HUSH_WALLET_ADDRESS%.%MINER_NAME% --pass z --port 3092
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1556,6 +1581,7 @@ pause
 :: Lbry Miners
 ::
 :lbry1
+Title BBT Multi-Miner - CCMiner (LBRY)
 ECHO NVIDIA CCMiner Lbry Credits Miner - Lbry to coinmine.pl NVIDIA ONLY
 %CCMINER2_CUDA% -o stratum+tcp://lbc-us.coinmine.pl:8787 -u %LBRY_WALLET_ADDRESS%.%MINER_NAME% -a lbry
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1563,6 +1589,7 @@ pause
 
 :lbry2
 :: Not working for now
+Title BBT Multi-Miner - SGMiner (LBRY)
 ECHO AMD SGMiner Lbry Credits Miner - Lbry to coinmine.pl AMD ONLY
 %CCMINER2_CUDA% --kernel lbry -o stratum+tcp://lbc-us.coinmine.pl:8787 -u %LBRY_WALLET_ADDRESS%.%MINER_NAME% -p x -I 19 -w 64 -g 4
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1572,24 +1599,28 @@ pause
 :: Dbix Miners
 ::
 :dbix1
+Title BBT Multi-Miner - Claymore (DBIX)
 ECHO AMD and NVIDIA Claymore - Dbix to Sexy.pool only
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://dbix.pool.sexy:7007 -ewal %DBIX_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -allpools 1 -allcoins 1 -mode 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :dbix2
+Title BBT Multi-Miner - Claymore (DBIX) and (SC)
 ECHO AMD and NVIDIA Claymore - Dbix to Sexy.Pool and Siacoin to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://dbix.pool.sexy:7007 -ewal %DBIX_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -dpool stratum+tcp://sia-us-east1.nanopool.org:7777 -dwal %SIA_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -dcoin sia -allpools 1
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :dbix3
+Title BBT Multi-Miner - Claymore (DBIX)
 ECHO AMD and NVIDIA Claymore - DBIX to Hodl.Pool Only
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://dbix.hodlpool.com:8007 -ewal %DBIX_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -allpools 1 -allcoins 1 -mode 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :dbix4
+Title BBT Multi-Miner - Claymore (DBIX) and (SC)
 ECHO AMD and NVIDIA Claymore - DBIX to Hodl Pool and Siacoin to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://dbix.hodlpool.com:8007 -ewal %DBIX_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -dpool stratum+tcp://sia-us-east1.nanopool.org:7777 -dwal %SIA_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -dcoin sia -allpools 1
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1600,36 +1631,42 @@ pause
 ::
 
 :ubiq1
+Title BBT Multi-Miner - Claymore (UBIQ)
 ECHO AMD and NVIDIA Claymore - Ubiq to UbiqPool Only
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://eu.ubiqpool.io:8008 -ewal %UBIQ_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -allpools 1 -allcoins 1 -mode 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ubiq2
+Title BBT Multi-Miner - Claymore (UBIQ)
 ECHO AMD and NVIDIA Claymore - Ubiq to Hodl Pool Only
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://dbix.hodlpool.com:8007 -ewal %UBIQ_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -allpools 1 -allcoins 1 -mode 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ubiq3
+Title BBT Multi-Miner - Claymore (UBIQ)
 ECHO AMD and NVIDIA Claymore - Ubiq to Sexy.Pool Only
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://ubq.pool.sexy:9009 -ewal %UBIQ_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -allpools 1 -allcoins 1 -mode 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ubiq4
+Title BBT Multi-Miner - Claymore (UBIQ) and (SC)
 ECHO AMD and NVIDIA Claymore - Ubiq to UbiqPool and Siacoin to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://eu.ubiqpool.io:8008 -ewal %UBIQ_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -dpool stratum+tcp://sia-us-east1.nanopool.org:7777 -dwal %SIA_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -dcoin sia -allpools 1
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ubiq5
+Title BBT Multi-Miner - Claymore (UBIQ) and (SC)
 ECHO AMD and NVIDIA Claymore - Ubiq to Hodl Pool and Siacoin to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://dbix.hodlpool.com:8007 -ewal %UBIQ_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -dpool stratum+tcp://sia-us-east1.nanopool.org:7777 -dwal %SIA_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -dcoin sia -allpools 1
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :ubiq6
+Title BBT Multi-Miner - Claymore (UBIQ) and (SC)
 ECHO AMD and NVIDIA Claymore - Ubiq to Sexy.Pool and Siacoin to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://ubq.pool.sexy:9009 -ewal %UBIQ_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -dpool stratum+tcp://sia-us-east1.nanopool.org:7777 -dwal %SIA_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -dcoin sia -allpools 1
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1639,12 +1676,14 @@ pause
 :: Expanse miners
 ::
 :exp1
+Title BBT Multi-Miner - Claymore (Expanse)
 ECHO AMD and NVIDIA Claymore - Expanse to Hodl Pool
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://exp.hodlpool.com:8003 -ewal %EXP_WALLET_ADDRESS% -epsw x -esm 0 -allcoins exp -allpools 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :exp2
+Title BBT Multi-Miner - Claymore (Expanse)
 ECHO AMD and NVIDIA Claymore - Expanse to Hodl Pool
 %CLAYMORE_DUAL_ETHEREUM% -epool exp.digger.ws:7008 -ewal %EXP_WALLET_ADDRESS% -epsw x -esm 0 -allcoins exp -allpools 1 
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1654,12 +1693,14 @@ pause
 :: Chaincoin Miners
 ::
 :chc1
+Title BBT Multi-Miner - SGMiner (Chaincoin)
 ECHO AMD SGMiner Chaincoin - Chaincoin to Suprnova.cc AMD ONLY
 %SGMINER_CHAINCOIN% -k chaincoin -o stratum+tcp://chc-supernova.cc:5888 -u %MINER_WEBLOGIN%.%MINER_NAME% -p %WORKER_PASSWORD% -I 18 -g 4 -w 128 --lookup-gap 4 -s 1 --queue 1 -E 15
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :chc2
+Title BBT Multi-Miner - CCMiner (Chaincoin)
 ECHO NVIDIA CCMiner Chaincoin Miner - Chaincoin to Suprnova.cc NVIDIA ONLY
 %CCMINER2_CUDA% -o stratum+tcp://chc.suprnova.cc:5888 -u %MINER_WEBLOGIN%.%MINER_NAME% -p %WORKER_PASSWORD% -a c11
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1669,12 +1710,14 @@ pause
 :: Digibyte Miners
 ::
 :dgb1
+Title BBT Multi-Miner - SGMiner (Digibyte)
 ECHO AMD SGMiner DGB Miner - Digibyte to Suprnova.cc AMD Only
 %SGMINER_NICEHASH% -o stratum+tcp://dgbg.suprnova.cc:7978 -u %MINER_WEBLOGIN%.%MINER_NAME% -p %WORKER_PASSWORD% -I 20 -g 4 -w 128 -k myriadcoin-groestl --no-submit-stale
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :dgb2
+Title BBT Multi-Miner - ccminer (Digibyte)
 ECHO NVIDIA CCMiner DGB Miner - Digibyte to Suprnova.cc NVIDIA ONLY
 %CCMINER2_CUDA% -o stratum+tcp://dgbg.suprnova.cc:7978 -u %MINER_WEBLOGIN%.%MINER_NAME% -p %WORKER_PASSWORD% -a myr-gr
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1684,6 +1727,7 @@ pause
 :: Feathercoin Miners
 ::
 :ftc1
+Title BBT Multi-Miner - ccminer (Feathercoin)
 ECHO NVIDIA CCMiner Feathercoin Miner - FTC to P2Pool FTC
 %CCMINER2_CUDA% -o stratum+tcp://46.4.0.101:19327 -u %FTC_WALLET_ADDRESS% -p %WORKER_PASSWORD% -a neoscrypt -N60 -i 19.5
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1692,18 +1736,21 @@ if %ERRORLEVEL% NEQ 0 goto exit
 :: MusicCoin Miners
 ::
 :musiccoin1
+Title BBT Multi-Miner - Claymore (MusicCoin)
 ECHO AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io)
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://uk.gmc.epool.io:8008 -ewal %MUSICCOIN_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -allpools 1 -allcoins 1 -mode 1 
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :musiccoin2
+Title BBT Multi-Miner - Claymore (MusicCoin)
 ECHO AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io) and Siacoin to Nanopool
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://uk.gmc.epool.io:8008 -ewal %MUSICCOIN_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -dpool stratum+tcp://sia-us-east1.nanopool.org:7777 -dwal %SIA_WALLET_ADDRESS%/%MINER_NAME%/%EMAIL_ADDRESS% -dcoin sia -allpools 1
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :musiccoin3
+Title BBT Multi-Miner - MusicCoin
 ECHO AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io) and LBRY to Coinmine.pl
 %CLAYMORE_DUAL_ETHEREUM% -epool stratum+tcp://uk.gmc.epool.io:8008 -ewal %MUSICCOIN_WALLET_ADDRESS% -epsw x -eworker %MINER_NAME% -dpool stratum+tcp://lbc-us.coinmine.pl:6256 -dwal %LBRY_WALLET_ADDRESS%.%MINER_NAME% -dpsw x -dcoin lbc
 if %ERRORLEVEL% NEQ 0 goto exit
@@ -1713,6 +1760,8 @@ pause
 :: Nexus Miners
 ::
 :nexus1
+Title BBT Multi-Miner - NexusPrimePoolMiner (Nexus)
+mode con: cols=170 lines=13
 SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
 SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
 ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nexusminingpool.com)
@@ -1721,6 +1770,8 @@ if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :nexus2
+Title BBT Multi-Miner - NexusPrimePoolMiner (Nexus)
+mode con: cols=170 lines=13
 SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
 SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
 ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nxscpupool.com)
@@ -1729,6 +1780,8 @@ if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :nexus3
+Title BBT Multi-Miner - NexusPrimePoolMiner (Nexus)
+mode con: cols=170 lines=13
 SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
 SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
 ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nxsminingpool.com)
@@ -1737,6 +1790,8 @@ if %ERRORLEVEL% NEQ 0 goto exit
 pause
 
 :nexus4
+Title BBT Multi-Miner - NexusPrimePoolMiner (Nexus)
+mode con: cols=170 lines=13
 SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
 SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
 ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nxspool.com)
@@ -1748,6 +1803,7 @@ pause
 :: Unitus Miners
 ::
 :unitus1
+Title BBT Multi-Miner - CPUMiner (Unitus-Argon2d)
 ECHO CPUMiner - Unitus Merge Mine to epool Pool (https://mine.unitus.online)
 SET /a uthreads=%NUMBER_OF_PROCESSORS% -1
 %CPUMINER% -a argon2d -o stratum+tcp://argon.mine.unitus.online:3003 -O %UIS_WALLET_ADDRESS%:x -t %uthreads%

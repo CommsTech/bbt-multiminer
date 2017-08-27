@@ -1,8 +1,10 @@
-## Bits Be Trippin' & alon7 Multi-miner
+## Bits Be Trippin' , alon7 & CommsTech Multi-miner
 
-Bits Be Trippin' is a youtube channel for cryptocurrencies mining.   
+Bits Be Trippin' is a youtube channel for cryptocurrencies mining. 
+https://www.youtube.com/user/BitsBeTrippin  
 They created the initial multiminer to enable easy switch between miners.  
-I took the script a step further and added more pools, coins and made it more configurable.  
+alon7 took the script a step further and added more pools, coins and made it more configurable.
+I took the script a step further and added a guided setup for beginners on windows.  
 
 ### Available Coins
 1.  Ethereum (ETH)
@@ -30,6 +32,7 @@ I took the script a step further and added more pools, coins and made it more co
 2. Under Wallets, according to the coin you want to mine, change the wallet address to yours
 3. Name your miner under MINER_NAME variable
 4. Change EMAIL_ADDRESS to receive updated from supported pools (nanopool for now)
+5. Run the .bat file and enjoy
 
 ### Linux
 NOTE: Some linux miners are still unavailable. We are currently working on it and you're willing to contribute.
