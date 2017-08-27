@@ -1761,7 +1761,7 @@ pause
 ::
 :nexus1
 Title BBT Multi-Miner - NexusPrimePoolMiner (Nexus)
-mode con: cols=170 lines=13
+mode con: cols=170 lines=14
 SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
 SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
 ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nexusminingpool.com)
@@ -1771,7 +1771,7 @@ pause
 
 :nexus2
 Title BBT Multi-Miner - NexusPrimePoolMiner (Nexus)
-mode con: cols=170 lines=13
+mode con: cols=170 lines=14
 SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
 SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
 ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nxscpupool.com)
@@ -1781,7 +1781,7 @@ pause
 
 :nexus3
 Title BBT Multi-Miner - NexusPrimePoolMiner (Nexus)
-mode con: cols=170 lines=13
+mode con: cols=170 lines=14
 SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
 SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
 ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nxsminingpool.com)
@@ -1791,7 +1791,7 @@ pause
 
 :nexus4
 Title BBT Multi-Miner - NexusPrimePoolMiner (Nexus)
-mode con: cols=170 lines=13
+mode con: cols=170 lines=14
 SET /a sthreads=%NUMBER_OF_PROCESSORS% / 3
 SET /a pthreads=%NUMBER_OF_PROCESSORS% - 1
 ECHO NexusPrimePoolMiner - Nexus to epool Pool (https://nxspool.com)
