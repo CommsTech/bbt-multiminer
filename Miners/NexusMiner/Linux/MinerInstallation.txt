@@ -1,0 +1,4 @@
+sudo apt-get update && sudo apt-get install -y git libcurl4-openssl-dev libssl-dev make build-essential libboost-all-dev libdb++-dev libgmp-dev 
+git clone https://github.com/Nexusoft/PrimePoolMiner 
+cd PrimePoolMiner 
+make -j8 -f makefile.unix 
