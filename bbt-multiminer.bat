@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableDelayedExpansion
-mode con: cols=120 lines=50
+mode con: cols=120 lines=55
 Title BBT Multi-Miner
 rem **********************************************************************
 rem *         BBT Multi-Miner Easy Batch File  v4 by BBT & alon7         *
@@ -15,29 +15,9 @@ rem echo on
 
 
 ::
-:: Wallets
+:: Wallets and Info
 ::
-SET ETH_WALLET_ADDRESS=0xF897EaFdb787AcD4Da5e2EB5003E42dc1Ef86d39
-SET ETC_WALLET_ADDRESS=0x89b455cfd5adb8ba4a69fd6bd082b3d61efe160f
-SET XMR_WALLET_ADDRESS=452eu5HWBcTEwQfwkRFHp9MgC39DhtAio5um8mEs6ZRgcyq9V3Gy3GbJfyASSxepSRQRe6SHcQ27xgorYzyZrn6DSVmWvuw.4d8ddccc40568d93
-SET SIA_WALLET_ADDRESS=6ce3c1dc8444ce3dc362425124853e0f32e930eaae1dedc6e919a08d8b6664bf71bd744dda24
-SET ZCASH_WALLET_ADDRESS=t1dBorBoRyznDaRyQzEEB4SkvmCFhmF2ZYk
-SET PASCAL_WALLET_ADDRESS=86646-64.59e76e7d7a498fbc
-SET HUSH_WALLET_ADDRESS=t1MmWWevkAxB282JqtpY4bK7njF7XPfcH2n
-SET LBRY_WALLET_ADDRESS=bitsbetrippin
-SET EXP_WALLET_ADDRESS=0x00d27FC9623282422A836590CdD75e5A109850ff
-SET DECRED_WALLET_ADDRESS=bitsbetrippin
-SET DBIX_WALLET_ADDRESS=0x4c04f53f3bf154aa68f78f45b75f0c9dec120796
-SET UBIQ_WALLET_ADDRESS=0xb85150eb365e7df0941f0cf08235f987ba91506a
-SET MUSIC_WALLET_ADDRESS=0xf09522eba78fcd890e2de503b38cadd436df3845
-SET NXS_WALLET_ADDRESS=2RGMypvsvDxbYUXUDKJ9zc4Cd6ZuE6SVq6ggmLupLgoNU9xmCEn
-SET UIS_WALLET_ADDRESS=UkujvUHDLTWqRwLZvBw2vzgEYbLXHqpsw4
-
-::
-:: Names
-::
-SET MINER_NAME=bbtworker01
-SET EMAIL_ADDRESS=bitsbetrippin1@gmail.com
+call Info.bat
 
 ::
 :: Miners
@@ -56,6 +36,12 @@ SET SGMINER_CHAINCOIN="%~dp0\Miners\sgminer\v4.1.0-chaincoin\Windows\sgminer.exe
 SET SGMINER_NICEHASH="%~dp0\Miners\sgminer\v5.6.1-nicehash\Windows\sgminer.exe"
 SET NEXUSCPUMINER="%~dp0\Miners\NexusMiner\Windows\nexus_cpuminer.exe"
 SET CPUMINER="%~dp0\Miners\CPUMiner\Windows\unitus_cpuminer-x64-generic.exe"
+SET XMR_STAK_MINER="%~dp0\Miners\xmr-stak-cpu\Windows\xmr-stak-cpu.exe"
+
+::
+:: Scripts
+::
+
 
 setx GPU_FORCE_64BIT_PTR 0 >nul 2>&1
 setx GPU_MAX_HEAP_SIZE 100 >nul 2>&1
@@ -253,7 +239,7 @@ ECHO How would you like to Setup?
 ECHO 1. Guided
 ECHO 2. Expert
 ECHO.
-ECHO - EXIT
+ECHO 99 - EXIT
 
 :: Get input from user
 SET /P M=Type 1 or 2 then press ENTER:
@@ -265,7 +251,7 @@ if defined var goto EOF
 
 IF %M%==1 GOTO GUIDED
 IF %M%==2 GOTO ALL
-IF %M% GTR 3 GOTO EOF
+IF %M% GTR 2 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 
@@ -294,7 +280,8 @@ ECHO 17. Unitus (UIS)
 ECHO.
 ECHO 18. TRI Mine (1 Dual Miner and 1 CPU Miner) //in testing
 ECHO.
-ECHO 19 - Home
+ECHO 19 - Troubleshooting
+ECHO 20 - Home
 ECHO 99 - EXIT
 ECHO.
 
@@ -324,9 +311,24 @@ IF %M%==15 GOTO MUSIC_Menu
 IF %M%==16 GOTO NXS_Menu
 IF %M%==17 GOTO UIS_Menu
 IF %M%==18 GOTO TRI_Menu
-IF %M%==19 GOTO HOME
+IF %M%==19 GOTO TROUBLESHOOTING
+IF %M%==20 GOTO HOME
 IF %M% GTR 20 GOTO EOF
 IF %M% LSS 0 GOTO EOF
+
+
+
+:TROUBLESHOOTING
+ECHO ====================================================
+ECHO *              Troubleshooting Menu                *
+ECHO ====================================================
+ECHO.
+ECHO We will now launch the BBT Website to direct you 
+ECHO through the troubleshooting process
+ECHO 
+pause
+start /max https://bbtvlog.blogspot.co.il/p/troubleshooting-checklist.html
+GOTO HOME
 
 
 :ETH_Menu
@@ -373,7 +375,7 @@ ECHO  please verify YOUR info below
 ECHO  %ETH_WALLET_ADDRESS%
 ECHO  %MINER_NAME%
 ECHO  %EMAIL_ADDRESS%
-ECHO  If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  NVIDIA ONLY - Optimized Ethminer - Eth Ethermine.org Only (%error1%)
 ECHO 2.  NVIDIA ONLY - Optimized Ethminer - Eth Nanopool Only (%error2%)
@@ -409,7 +411,7 @@ IF %M%==8 GOTO ethereum8
 IF %M%==9 GOTO ethereum9
 IF %M%==10 GOTO ethereum10
 IF %M%==11 GOTO HOME
-IF %M% GTR 12 GOTO EOF
+IF %M% GTR 11 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :ETC_Menu
@@ -442,7 +444,7 @@ ECHO please verify YOUR info below
 ECHO %ETC_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1. NVIDIA ONLY - Optimized Ethminer - Etc nanopool (%error1%)
 ECHO 2. AMD and NVIDIA Claymore - Etc (ethereum classic) to Nanopool (%error1%)
@@ -468,7 +470,7 @@ IF %M%==3 GOTO ethereumc3
 IF %M%==4 GOTO ethereumc4
 IF %M%==5 GOTO ethereumc5
 IF %M%==6 GOTO HOME
-IF %M% GTR 7 GOTO EOF
+IF %M% GTR 6 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :XMR_Menu
@@ -493,7 +495,7 @@ ECHO please verify YOUR info below
 ECHO %XMR_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  AMD ONLY - Claymore - XMR to Nanopool (%error1%)
 ECHO 2.  NVIDIA ONLY - TSIV CCMiner XMR to Nanopool (%error1%)
@@ -513,7 +515,7 @@ if defined var goto EOF
 IF %M%==1 GOTO monero1
 IF %M%==2 GOTO monero2
 IF %M%==3 GOTO HOME
-IF %M% GTR 4 GOTO EOF
+IF %M% GTR 3 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :ZEC_Menu
@@ -538,7 +540,7 @@ ECHO please verify YOUR info below
 ECHO %ZCASH_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  AMD ZCash Claymore - Zcash to Nanopool (%error1%) AMD Only
 ECHO 2.  NVIDIA Excavator - Zcash to Nanopool (%error1%) NVIDIA Only
@@ -560,7 +562,7 @@ IF %M%==1 GOTO zcash1
 IF %M%==2 GOTO zcash2
 IF %M%==3 GOTO zcash3
 IF %M%==4 GOTO HOME
-IF %M% GTR 5 GOTO EOF
+IF %M% GTR 4 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :SC_Menu
@@ -585,7 +587,7 @@ ECHO please verify YOUR info below
 ECHO %SIA_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.   AMD and NVIDIA Gominer - Siacoin to Nanopool Only (%error1%)
 ECHO.
@@ -603,7 +605,7 @@ if defined var goto EOF
 
 IF %M%==1 GOTO siacoin1
 IF %M%==2 GOTO HOME
-IF %M% GTR 3 GOTO EOF
+IF %M% GTR 2 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :PASC_Menu
@@ -628,7 +630,7 @@ ECHO please verify YOUR info below
 ECHO %PASCAL_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  AMD SGMiner PascalCoin (exchange address) - PascalCoin to Nanopool (%error1%)
 ECHO 2.  NVIDIA Excavator - PascalCoin to Nanopool (%error1%)
@@ -647,7 +649,8 @@ if defined var goto EOF
 
 IF %M%==1 GOTO pascal1
 IF %M%==2 GOTO pascal2
-IF %M% GTR 4 GOTO EOF
+IF %M%==3 GOTO HOME
+IF %M% GTR 3 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :HUSH_Menu
@@ -672,7 +675,7 @@ ECHO please verify YOUR info below
 ECHO %HUSH_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  AMD HUSH Claymore - Hush to zdash.miningpseed.com (%error1%) AMD Only
 ECHO 2.  NVIDIA EWBF's CUDA HUSH Miner - HUSH to zdash.miningspeed.com (%error1%) NVIDIA Only
@@ -692,7 +695,7 @@ if defined var goto EOF
 IF %M%==1 GOTO hush1
 IF %M%==2 GOTO hush2
 IF %M%==3 GOTO HOME
-IF %M% GTR 4 GOTO EOF
+IF %M% GTR 3 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :LBRY_Menu
@@ -717,7 +720,7 @@ ECHO please verify YOUR info below
 ECHO %LBRY_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  NVIDIA CCMiner Lbry Credits Miner - Lbry to coinmine.pl (%error1%) NVIDIA ONLY
 ECHO 2.  AMD SGMiner Lbry Credits Miner - Lbry to coinmine.pl (%error1%) AMD ONLY
@@ -737,7 +740,7 @@ if defined var goto EOF
 IF %M%==1 GOTO lbry1
 IF %M%==2 GOTO lbry2
 IF %M%==3 GOTO HOME
-IF %M% GTR 4 GOTO EOF
+IF %M% GTR 3 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :DBIX_Menu
@@ -778,7 +781,7 @@ ECHO please verify YOUR info below
 ECHO %DBIX_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  AMD and NVIDIA Claymore - DBIX to Sexy.Pool (%error2%) and Siacoin to Nanopool (%error3%)
 ECHO 2.  AMD and NVIDIA Claymore - DBIX to Hodl Pool (%error1%) Only
@@ -802,7 +805,7 @@ IF %M%==2 GOTO dbix2
 IF %M%==3 GOTO dbix3
 IF %M%==4 GOTO dbix4
 IF %M%==5 GOTO HOME
-IF %M% GTR 6 GOTO EOF
+IF %M% GTR 5 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :UBQ_Menu
@@ -849,7 +852,7 @@ ECHO please verify YOUR info below
 ECHO %UBIQ_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  AMD and NVIDIA Claymore - Ubiq to UbiqPool Only (%error1%)
 ECHO 2.  AMD and NVIDIA Claymore - Ubiq to Sexy.Pool Only (%error2%)
@@ -877,7 +880,7 @@ IF %M%==4 GOTO ubiq4
 IF %M%==5 GOTO ubiq5
 IF %M%==6 GOTO ubiq6
 IF %M%==7 GOTO HOME
-IF %M% GTR 8 GOTO EOF
+IF %M% GTR 7 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :EXP_Menu
@@ -910,7 +913,7 @@ ECHO please verify YOUR info below
 ECHO %EXP_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  AMD and NVIDIA Claymore - Expanse to Hodl Pool (%error1%)
 ECHO 2.  AMD and NVIDIA Claymore - Expanse to ExpansePool (%error2%)
@@ -930,7 +933,7 @@ if defined var goto EOF
 IF %M%==1 GOTO exp1
 IF %M%==2 GOTO exp1
 IF %M%==3 GOTO HOME
-IF %M% GTR 4 GOTO EOF
+IF %M% GTR 3 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :CHC_Menu
@@ -955,7 +958,7 @@ ECHO please verify YOUR info below
 ECHO %CHC_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  AMD - Chaincoin to Suprnova.cc (%error1%)
 ECHO 2.  Nvidia - Chaincoin to Suprnova.cc (%error1%)
@@ -975,7 +978,7 @@ if defined var goto EOF
 IF %M%==1 GOTO chc1
 IF %M%==2 GOTO chc2
 IF %M%==3 GOTO HOME
-IF %M% GTR 4 GOTO EOF
+IF %M% GTR 3 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :DGB_Menu
@@ -1000,7 +1003,7 @@ ECHO please verify YOUR info below
 ECHO %DGB_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  AMD - Digibyte to Suprnova.cc (%error1%)
 ECHO 2.  NVIDIA - Digibyte to Suprnova.cc (%error1%)
@@ -1020,7 +1023,7 @@ if defined var goto EOF
 IF %M%==1 GOTO dgb1
 IF %M%==2 GOTO dgb2
 IF %M%==3 GOTO HOME
-IF %M% GTR 4 GOTO EOF
+IF %M% GTR 3 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :FTC_Menu
@@ -1045,7 +1048,7 @@ ECHO please verify YOUR info below
 ECHO %FTC_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  NVIDIA - FTC to F2Pool (%error1%) FTC **AMD Version soon!
 ECHO.
@@ -1063,7 +1066,7 @@ if defined var goto EOF
 
 IF %M%==1 GOTO ftc1
 IF %M%==2 GOTO HOME
-IF %M% GTR 3 GOTO EOF
+IF %M% GTR 2 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :MUSIC_Menu
@@ -1096,7 +1099,7 @@ ECHO please verify YOUR info below
 ECHO %MUSIC_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io) (%error1%)
 ECHO 2.  AMD and NVIDIA Claymore - MusicCoin to epool Pool (https://gmc.epool.io) (%error1%) and Siacoin to Nanopool (%error2%)
@@ -1118,7 +1121,7 @@ IF %M%==1 GOTO musiccoin1
 IF %M%==2 GOTO musiccoin2
 IF %M%==3 GOTO musiccoin3
 IF %M%==4 GOTO HOME
-IF %M% GTR 5 GOTO EOF
+IF %M% GTR 4 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :NXS_Menu
@@ -1165,7 +1168,7 @@ ECHO please verify YOUR info below
 ECHO %NXS_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  CPUMINER - Nexus to epool Pool (https://nexusminingpool.com) (%error1%)
 ECHO 2.  CPUMINER - Nexus to epool Pool (https://nxscpupool.com) (%error2%)
@@ -1189,7 +1192,7 @@ IF %M%==2 GOTO nexus2
 IF %M%==3 GOTO nexus3
 IF %M%==4 GOTO nexus4
 IF %M%==5 GOTO HOME
-IF %M% GTR 6 GOTO EOF
+IF %M% GTR 5 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :UIS_Menu
@@ -1221,7 +1224,7 @@ ECHO please verify YOUR info below
 ECHO %UIS_WALLET_ADDRESS%
 ECHO %MINER_NAME%
 ECHO %EMAIL_ADDRESS%
-ECHO If any of this is incorrect exit and edit this .bat file
+ECHO  If any of this is incorrect exit BBT_Multiminer and edit the info.bat file
 ECHO.
 ECHO 1.  CPUMINER - Unitus Argon2d to epool Pool (https://mine.unitus.online) (%error1%)
 ECHO 2.  CPUMINER - Unitus Yescrypt to epool Pool (https://zpool.ca) (%error2%)
@@ -1241,8 +1244,24 @@ if defined var goto EOF
 IF %M%==1 GOTO unitus1
 IF %M%==2 GOTO unitus2
 IF %M%==3 GOTO HOME
-IF %M% GTR 4 GOTO EOF
+IF %M% GTR 3 GOTO EOF
 IF %M% LSS 0 GOTO EOF
+
+:TRI_Menu
+CLS
+ECHO **************************************************************************
+ECHO *                           TRI Miner Explanation                        *
+ECHO ************************************************************************** 
+ECHO * BBT-Miner will now launch another console for your CPU miner selection *
+ECHO * this window will return to guided setup for you to select a dual miner *
+ECHO * the other window will appear for your cpu miner selection              *
+ECHO *                                                                        *
+ECHO * Lets Begin                                                             *
+ECHO **************************************************************************
+pause
+cd %~dp0\Scripts\
+start bbt-multiminer_CPU_Only.bat
+goto GUIDED
 
 :ALL
 CLS
@@ -1419,7 +1438,7 @@ IF %M%==51 GOTO nexus4
 IF %M%==52 GOTO unitus1
 IF %M%==53 GOTO unitus2
 IF %M%==54 GOTO HOME
-IF %M% GTR 55 GOTO EOF
+IF %M% GTR 54 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 
@@ -1863,21 +1882,6 @@ SET /a uthreads=%NUMBER_OF_PROCESSORS% -1
 %CPUMINER% -a yescrypt -o stratum+tcp://yescrypt.mine.zpool.ca:6233 -O %UIS_WALLET_ADDRESS%:c=UIS -t %uthreads%
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
-
-:TRI_Menu
-ECHO **************************************************************************
-ECHO *                           TRI Miner Explanation                        *
-ECHO ************************************************************************** 
-ECHO * BBT-Miner will now launch another console for your CPU miner selection *
-ECHO * this window will return to guided setup for you to select a dual miner *
-ECHO * the other window will appear for your cpu miner selection              *
-ECHO *                                                                        *
-ECHO * Lets Begin                                                             *
-ECHO **************************************************************************
-pause
-cd %~dp0\Scripts\
-start bbt-multiminer_CPU_Only.bat
-goto GUIDED
 
 :exit
 ECHO Error while running miner

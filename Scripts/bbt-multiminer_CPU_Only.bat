@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableDelayedExpansion
-mode con: cols=120 lines=50
+mode con: cols=125 lines=55
 Title BBT Multi-Miner (CPU ONLY MODE)
 rem **********************************************************************
 rem *         BBT Multi-Miner Easy Batch File  v4 by BBT & alon7         *
@@ -14,29 +14,17 @@ rem **********************************************************************
 
 
 ::
-:: Wallets
+:: Wallets and Info
 ::
-SET XMR_WALLET_ADDRESS=452eu5HWBcTEwQfwkRFHp9MgC39DhtAio5um8mEs6ZRgcyq9V3Gy3GbJfyASSxepSRQRe6SHcQ27xgorYzyZrn6DSVmWvuw.4d8ddccc40568d93
-SET NXS_WALLET_ADDRESS=2RGMypvsvDxbYUXUDKJ9zc4Cd6ZuE6SVq6ggmLupLgoNU9xmCEn
-SET UIS_WALLET_ADDRESS=UkujvUHDLTWqRwLZvBw2vzgEYbLXHqpsw4
-
-::
-:: Names
-::
-SET MINER_NAME=bbtworker01
-SET EMAIL_ADDRESS=bitsbetrippin1@gmail.com
+cd ..
+Call Info.bat
 
 ::
 :: Miners
 ::
-SET NEXUSCPUMINER="%~dp0\Miners\NexusMiner\Windows\nexus_cpuminer.exe"
-SET CPUMINER="%~dp0\Miners\CPUMiner\Windows\unitus_cpuminer-x64-generic.exe"
-
-setx GPU_FORCE_64BIT_PTR 0 >nul 2>&1
-setx GPU_MAX_HEAP_SIZE 100 >nul 2>&1
-setx GPU_USE_SYNC_OBJECTS 1 >nul 2>&1
-setx GPU_MAX_ALLOC_PERCENT 100 >nul 2>&1
-setx GPU_SINGLE_ALLOC_PERCENT 100 >nul 2>&1
+SET NEXUSCPUMINER="%~dp0..\Miners\NexusMiner\Windows\nexus_cpuminer.exe"
+SET CPUMINER="%~dp0..\Miners\CPUMiner\Windows\unitus_cpuminer-x64-generic.exe"
+SET XMR_STAK_MINER="%~dp0..\Miners\xmr-stak-cpu\Windows\xmr-stak-cpu.exe"
 
 rem echo off
 rem **Instructions******************************************************* 
@@ -168,9 +156,9 @@ CLS
 ECHO ====================================================
 ECHO *        What Coin Would you like to mine?         *
 ECHO ====================================================
-ECHO 1.  Monero (XMR)
-ECHO 2. Nexus (NXS)
-ECHO 3. Unitus (UIS)
+ECHO 1.  Monero (XMR) (needs Work)
+ECHO 2.  Nexus (NXS)
+ECHO 3.  Unitus (UIS)
 ECHO.
 ECHO 4 - Home
 ECHO 99 - EXIT
@@ -363,7 +351,7 @@ CLS
 ECHO ====================================================
 ECHO *                    Monero (XMR)                  *
 ECHO ====================================================
-ECHO 1.  CPU ONLY - XMRminer - XMR to Nanopool
+ECHO 1.  CPU ONLY - XMRminer - XMR to Nanopool (needs work)
 ECHO ====================================================
 ECHO *                     Nexus                        *
 ECHO ====================================================
@@ -407,7 +395,26 @@ IF %M% LSS 0 GOTO EOF
 :monero1
 Title BBT Multi-Miner - XMR CPU Miner (XMR)
 ECHO CPU ONLY - Claymore - XMR to Nanopool
-%CLAYMORE_CRYPTONOTE% -o ssl://xmr-eu1.nanopool.org:14433 -u %XMR_WALLET_ADDRESS%.%MINER_NAME%/%EMAIL_ADDRESS% -p z -ftime 1 -allpools 1 
+(
+ECHO ^"cpu_thread_num" : 2,
+ECHO "cpu_threads_conf" : [ 
+ECHO	{ "low_power_mode" : false, "no_prefetch" : false, "affine_to_cpu" : 0 },
+ECHO	{ "low_power_mode" : false, "no_prefetch" : false, "affine_to_cpu" : 1 },
+ECHO ],
+ECHO "use_slow_memory" : "warn",
+ECHO "nicehash_nonce" : false,
+ECHO "pool_address" : "xmr-eu1.nanopool.org:14433",
+ECHO "wallet_address" : "%XMR_WALLET_ADDRESS%",
+ECHO "pool_password" : "x",
+ECHO "call_timeout" : 10,
+ECHO "retry_time" : 10,
+ECHO "verbose_level" : 3,
+ECHO "h_print_time" : 60,
+ECHO "httpd_port" : 0,
+ECHO "prefer_ipv4" : true,
+) > %~dp0..\Miners\xmr-stak-cpu\Windows\Config.txt
+sleep 10
+%XMR_STAK_MINER% %~dp0..\Miners\xmr-stak-cpu\Windows\Config.txt
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
 

@@ -28,7 +28,7 @@ I took the script a step further and added a guided setup for beginners on windo
 ## Setup
 
 ### Windows
-1. Right click on bbt-multiminer.bat -> edit 
+1. Right click on Info.bat -> edit 
 2. Under Wallets, according to the coin you want to mine, change the wallet address to yours
 3. Name your miner under MINER_NAME variable
 4. Change EMAIL_ADDRESS to receive updated from supported pools (nanopool for now)
@@ -52,7 +52,7 @@ NOTE: Some linux miners are still unavailable. We are currently working on it an
 4. Profit.
 #### Command line
 2. Open a cmd windows in the bbt-multiminer folder
-3. Run bbt-multiminer.bat <miner index>, for example: bbt-multiminer.bat 1 2 9 (Eth & Siacoin) (See Quick_Script_Example)
+3. Run bbt-multiminer.bat <miner index>, for example: bbt-multiminer.bat 1 2 9 (Eth & Siacoin) (See /Scripts/Quick_Script_Example.bat)
 #### Start on startup
 2. Right click on bbt-multiminer.bat -> Create Shortcut
 3. Right click on the new shortcut -> Properties
