@@ -277,7 +277,7 @@ ECHO ====================================================
 ECHO 1.  Ethereum (ETH)
 ECHO 2.  Ethereum Classic (ETC)
 ECHO 3.  Monero (XMR)
-ECHO 4.  ZCash (ZCH)
+ECHO 4.  ZCash (ZEC)
 ECHO 5.  SiaCoin (SC)
 ECHO 6.  PascalCoin (PASC)
 ECHO 7.  Hush (HUSH)
@@ -307,7 +307,7 @@ if defined var goto EOF
 IF %M%==1 GOTO ETH_Menu
 IF %M%==2 GOTO ETC_Menu
 IF %M%==3 GOTO XMR_Menu
-IF %M%==4 GOTO ZCH_Menu
+IF %M%==4 GOTO ZEC_Menu
 IF %M%==5 GOTO SC_Menu
 IF %M%==6 GOTO PASC_Menu
 IF %M%==7 GOTO HUSH_Menu
@@ -513,7 +513,7 @@ IF %M%==3 GOTO HOME
 IF %M% GTR 4 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
-:ZCH_Menu
+:ZEC_Menu
 CLS
 SET POOL1=nanopool.org  
 
