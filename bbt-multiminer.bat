@@ -292,7 +292,9 @@ ECHO 15. Musiccoin (MUSIC)
 ECHO 16. Nexus (NXS)
 ECHO 17. Unitus (UIS)
 ECHO.
-ECHO 18 - Home
+ECHO 18. TRI Mine (1 Dual Miner and 1 CPU Miner) //in testing
+ECHO.
+ECHO 19 - Home
 ECHO 99 - EXIT
 ECHO.
 
@@ -321,8 +323,9 @@ IF %M%==14 GOTO FTC_Menu
 IF %M%==15 GOTO MUSIC_Menu
 IF %M%==16 GOTO NXS_Menu
 IF %M%==17 GOTO UIS_Menu
-IF %M%==18 GOTO HOME
-IF %M% GTR 19 GOTO EOF
+IF %M%==18 GOTO TRI_Menu
+IF %M%==19 GOTO HOME
+IF %M% GTR 20 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 
@@ -1242,6 +1245,8 @@ IF %M% GTR 4 GOTO EOF
 IF %M% LSS 0 GOTO EOF
 
 :ALL
+CLS
+mode con: cols=120 lines=50
 ECHO ====================================================
 ECHO *                     ETHEREUM                     *
 ECHO ====================================================
@@ -1858,6 +1863,20 @@ SET /a uthreads=%NUMBER_OF_PROCESSORS% -1
 %CPUMINER% -a yescrypt -o stratum+tcp://yescrypt.mine.zpool.ca:6233 -O %UIS_WALLET_ADDRESS%:c=UIS -t %uthreads%
 if %ERRORLEVEL% NEQ 0 goto exit
 pause
+
+:TRI_Menu
+ECHO **************************************************************************
+ECHO *                           TRI Miner Explanation                        *
+ECHO ************************************************************************** 
+ECHO * BBT-Miner will now launch another console for your CPU miner selection *
+ECHO * this window will return to guided setup for you to select a dual miner *
+ECHO * the other window will appear for your cpu miner selection              *
+ECHO *                                                                        *
+ECHO * Lets Begin                                                             *
+ECHO **************************************************************************
+pause
+start bbt-multiminer.bat
+goto GUIDED
 
 :exit
 ECHO Error while running miner

@@ -52,7 +52,7 @@ NOTE: Some linux miners are still unavailable. We are currently working on it an
 4. Profit.
 #### Command line
 2. Open a cmd windows in the bbt-multiminer folder
-3. Run bbt-multiminer.bat <miner index>, for example: bbt-multiminer.bat 9 (Eth & Siacoin)
+3. Run bbt-multiminer.bat <miner index>, for example: bbt-multiminer.bat 1 2 9 (Eth & Siacoin) (See Quick_Script_Example)
 #### Start on startup
 2. Right click on bbt-multiminer.bat -> Create Shortcut
 3. Right click on the new shortcut -> Properties
