@@ -10,7 +10,7 @@ I took the script a step further and added a guided setup for beginners on windo
 1.  Ethereum (ETH)
 2.  Ethereum Classic (ETC)
 3.  Monero (XMR)
-4.  ZCash (ZCH)
+4.  ZCash (ZEC)
 5.  SiaCoin (SC)
 6.  PascalCoin (PASC)
 7.  Hush (HUSH)
