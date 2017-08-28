@@ -1875,7 +1875,8 @@ ECHO *                                                                        *
 ECHO * Lets Begin                                                             *
 ECHO **************************************************************************
 pause
-start bbt-multiminer.bat
+cd %~dp0\Scripts\
+start bbt-multiminer_CPU_Only.bat
 goto GUIDED
 
 :exit
