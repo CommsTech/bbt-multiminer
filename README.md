@@ -24,6 +24,7 @@ I took the script a step further and added a guided setup for beginners on windo
 15. Musiccoin (MUSIC)
 16. Nexus (NXS)
 17. Unitus (UIS)
+18. Signatum (SIG)
 
 ## Setup
 
