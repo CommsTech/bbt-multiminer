@@ -1,8 +1,9 @@
-rem ##Edit all addresses you intend to use by changing the address after the "=" I.E. ABC_ADD=ALLTHISNEEDSTOCHANGETOYOURS
+rem ##Edit all addresses you intend to use by changing the address after the "=" I.E. ABC_ADD=ALL.THIS.NEEDS.TO.CHANGE.YOUR.INFO
 
 rem ##Basic Info
 SET MINER_NAME=bbtworker01
 SET EMAIL_ADDRESS=bitsbetrippin1@gmail.com
+SET WORKER_PASSWORD=x
 
 rem ##Wallets
 SET ETH_WALLET_ADDRESS=0xF897EaFdb787AcD4Da5e2EB5003E42dc1Ef86d39
