@@ -23,7 +23,7 @@ call Info.bat
 :: Miners
 ::
 SET ETHMINER_NVIDIA_OPTIMIZED="%~dp0\Miners\ethminer\v0.11.0_Nvidia_Optimized\Windows\ethminer.exe"
-SET CLAYMORE_DUAL_ETHEREUM="%~dp0\Miners\Claymore\Dual_Ethereum\v9.8\Windows\EthDcrMiner64.exe"
+SET CLAYMORE_DUAL_ETHEREUM="%~dp0\Miners\Claymore\Dual_Ethereum\v10.0\Windows\EthDcrMiner64.exe"
 SET CLAYMORE_CRYPTONOTE="%~dp0\Miners\Claymore\CryptoNote_GPU\v9.7\Windows\NsGpuCNMiner.exe"
 SET CLAYMORE_ZCASH_AMD_GPU="%~dp0\Miners\Claymore\Claymore_ZCash_AMD_GPU\v12.5\Windows\ZecMiner64.exe"
 SET ZEC_MINER="%~dp0\Miners\Zec_Miner\v0.3.4b\Windows\miner.exe"

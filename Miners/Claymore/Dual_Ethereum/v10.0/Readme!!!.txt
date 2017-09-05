@@ -244,6 +244,8 @@ COMMAND LINE OPTIONS:
 	3: same as "2", but start indexes from one instead of zero. For example, if you specify "-di 05" to select first and last GPUs of six GPUs installed, miner will display these two selected cards as "GPU1" and "GPU6".
 	Default value is "0".
 
+-platform	selects GPUs manufacturer. 1 - use AMD GPUs only. 2 - use NVIDIA GPUs only. 3 - use both AMD and NVIDIA GPUs. Default value is "3".
+
 
 
 CONFIGURATION FILE
@@ -378,13 +380,12 @@ KNOWN ISSUES
   I write miners since 2014. Most of them are recognized as viruses by some paranoid antiviruses, perhaps because I pack my miners to protect them from disassembling, perhaps because some people include them into their botnets, or perhaps these antiviruses are not good, I don't know. For these years, a lot of people used my miners and nobody confirmed that my miner stole anything or did something bad. 
   Note that I can guarantee clean binaries only for official links in my posts on this forum (bitcointalk). If you downloaded miner from some other link - it really can be a virus.
   However, my miners are closed-source so I cannot prove that they are not viruses. If you think that I write viruses instead of good miners - do not use this miner, or at least use it on systems without any valuable data.
-- LBC PoW is not very good for dual mining, it causes a bit less Ethereum mining speed.
 
 
 
 TROUBLESHOOTING
 
-1. Install Catalyst v15.12 (for AMD cards).
+1. Install Catalyst v15.12 for old AMD cards; for Fury, Polaris and Vega cards use latest blockchain drivers.
 2. Disable overclocking.
 3. Set environment variables as described above.
 4. Set Virtual Memory 16 GB.
@@ -440,7 +441,7 @@ This miner does not use HTTP protocol, it uses Stratum directly. So you should c
   This is a price for the extra work done. It also consumes more power, so make sure your PSU has sufficient power.
 
 - Can the temperature be lowered?
-  Yes, see "-tt", "-dcri", "-ttdcr", "-li" options.
+  Yes, see "-tt", "-dcri", "-ttdcr", "-li", "-ttli" options.
 
 - How can I undervolt my cards on Linux?
   Usually only by flashing modified GPU BIOS. Unfortunately, no standard way of doing so.
@@ -449,7 +450,7 @@ This miner does not use HTTP protocol, it uses Stratum directly. So you should c
   On my test rigs I use miner with default settings and on pool I see about 4-5% less than miner shows (my hashrate is about 800MH/s if I turn on all rigs). 
   Miner shows "raw" hashrate, 2% is devfee in dual mode, other 2-3% can be related to the connection quality, current pool status/luck or/and may be something else. 
   Also, from my calculations miner loses about 0.5-1% because it cannot drop current GPU round when it gets new job, it is related to "-ethi" value, so I made it 8 by default instead of 16.
-  But if on pool you see 10% less than miner shows all the time - something is wrong with pool, your connection to internet or your hashrate is low and you did not wait enough time to see average hashrate for 24 hours. 
+  But if on pool you see 10% less than miner shows all the time - something is wrong with your pool, your connection to internet or your hashrate is low and you did not wait enough time to see average hashrate for 24 hours. 
   Usually I use "ethpool" pool for tests.
 
 - I see only one card via Remote Desktop Connection.
@@ -489,7 +490,7 @@ This miner does not use HTTP protocol, it uses Stratum directly. So you should c
   In v9.x you should find best -dcri value even in ETH-only mode, check "FINE-TUNING" section. If you don't want to do it, use "-asm 0" option to use old GPU kernels.
 
 - How many cards are supported?
-  Miner supports up to 32 GPUs, though some options like "-di" will not work properly for some cards since they accept 0..9 indexes only.
+  Miner supports up to 32 GPUs.
 
 - Miner crashed and I cannot restart it until reboot.
   Often when OpenCL fails, you have to reboot the system, not just restart miner. Sometimes even soft reboot won't work and you have to press Reset button. It is because the fail is at drivers level, Windows does not like such things and drivers too.
